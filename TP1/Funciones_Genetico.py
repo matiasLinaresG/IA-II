@@ -2,6 +2,7 @@ import numpy as np
 import random
 from more_itertools import sort_together
 from Temple import temple_simulado
+import time
 
 
 def DeProductosAEstantes(orden,IdEstantes,configuracion):
@@ -10,6 +11,7 @@ def DeProductosAEstantes(orden,IdEstantes,configuracion):
     orden_E.append(IdEstantes[configuracion.index(producto)])
   return orden_E
 
+    
 
 def Calidad(Poblacion_P,Ordenes_P,IdEstantes):
 
@@ -18,10 +20,15 @@ def Calidad(Poblacion_P,Ordenes_P,IdEstantes):
     print('1 individuo')
 
     calidadOrden = 0
+
+    t0=time.time()
     for orden in Ordenes_P:
       orden_E=DeProductosAEstantes(orden,IdEstantes,configuracion)
       calidadOrden += temple_simulado(orden_E)/len(orden_E)
     Calidad.append(calidadOrden)
+    t1=time.time()
+    print("T: ",t1-t0)
+
     print ("calidad individuo: ",calidadOrden)
   return Calidad
        
