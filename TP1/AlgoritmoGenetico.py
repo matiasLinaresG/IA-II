@@ -15,7 +15,7 @@ IdProductos=pd.read_csv('productos.csv')
 IdProductos=IdProductos["id"].values.tolist()
 
 #leer el archivo order1.txt y guardar su informacoin en una lista de listas. esta separado po 'n y ,
-with open('orders2.txt', 'r') as file:
+with open('ordenes_ordenadas.txt', 'r') as file:
     contenido = file.read()
 
 ordenes = contenido.split('\n')
@@ -40,7 +40,7 @@ for k in range(iter_max):
     print('calidad lista')
     CalidadPInter,PoblacionInter=SelecionarPoblacion(Poblacion,CalidadP,N_poblacionInter)
     print('seleccion lista')
-    if Convergencia(CalidadPInter,N_poblacionInter-2):
+    if Convergencia(CalidadPInter,N_poblacionInter-5):
         break
 
 #================================================================================================

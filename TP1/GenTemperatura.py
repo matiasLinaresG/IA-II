@@ -18,6 +18,8 @@ def GenTemperatura():
         i=i+1
     df = pd.DataFrame({'Iteracion': lista_iteraciones, 'Temperatura': lista_temp})
     df.to_csv('Temperatura.csv', index=False)
+    print("Archivo de temperatura generado")
+    print(len(lista_temp))
 
 GenTemperatura()
 

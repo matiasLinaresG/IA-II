@@ -26,7 +26,9 @@ with open('ordenes_ordenadas.txt', 'w') as file:
             file.write(ordenes[i][j])
             if j < len(ordenes[i])-1:
                 file.write(",")
-        file.write("\n")
+        #no poner una "\n" al final de la orden
+        if i < len(ordenes)-1:
+            file.write("\n")
 
 #guardar en un csv on pandas los id de los productos ordenados y sin repetir
 productos = []

@@ -38,27 +38,42 @@ def temple_simulado(ListaEstantes):
 
     solution = []
     costo_anterior = 200000
-    lista = Trayectorias
+    lista=Trayectorias
+    lista.insert(0,1001)
+
+    lista.append(1001)
+   
 
     #agregamos lista la bahia de carga de id "carga" al inicio y al final de la lista
-    lista.insert(0, 1001)
-    lista.append(1001)
+
     lista_costos = []
     lista_temp= []
     lista_iteraciones = []
+    iter=0
+    costo_minimo = 200000
 
     for j in range(len(Temperatura["Temperatura"])):
+        iter=iter+1
         costo_actual = 0
 
-        #eligo un indice de la lista al azar
-        indice = random.randint(1, len(lista) - 2)
-        #eligo un segundo indice de la lista al azar que no sea el mismo que el anterior
-        indice2 = indice+1
-        if indice2 > len(lista) - 2:
-            indice2 = indice - 1
+        if len(lista) > 3:
+            #eligo un indice de la lista al azar
+            indice = random.randint(1, len(lista) - 2)
+            #eligo un segundo indice de la lista al azar que no sea el mismo que el anterior
+            indice2 = indice+1
+            if indice2 > len(lista) - 2:
+                indice2 = indice - 1
 
-        #intercambio los elementos de las posiciones elegidas
-        lista[indice], lista[indice2] = lista[indice2], lista[indice]
+            #intercambio los elementos de las posiciones elegidas
+            lista[indice], lista[indice2] = lista[indice2], lista[indice]
+        else:
+            Terminar = True
+
+        #if iter>10:
+        #    Terminar = True
+
+        
+        
 
 
         # #aleatorizar lista
@@ -66,15 +81,15 @@ def temple_simulado(ListaEstantes):
         # print("lista", lista)
         # #lista.append(lista[0])
         # #copio la lista para poder compararla con la lista anterior
-
+        Terminar = False
         for i in range(len(lista) - 1):
             # print(" ")
             # print(i)
 
             ComienzoParcial = lista[i]
-            # print(Comienzo)
+            #print(Comienzo)
             FinParcial = lista[i + 1]
-            # print(Fin)
+            #print(Fin)
 
             #usamos el costo actual y la distancia asociada al dataframe para calcular el costo de la solucion desde el dataframe
 
@@ -145,20 +160,26 @@ def temple_simulado(ListaEstantes):
         lista_temp.append(temp_actual)
         lista_iteraciones.append(len(lista_costos))
 
+        if Terminar:
+            break
 
-    print("\n\n\nLA SOLUCION ES:")
-    print(solution)
+        if costo_anterior < costo_minimo:
+            costo_minimo = costo_anterior
 
-    print("\n\n\nEl costo de la solucion es:")
-    print(costo_anterior)
+
+    #print("\n\n\nLA SOLUCION ES:")
+    #print(solution)
+
+    #print("\n\n\nEl costo de la solucion es:")
+    #print(costo_anterior)
     #plotear costo anterior vs temperatura
-    plt.scatter(lista_iteraciones,lista_costos)
+    #plt.scatter(lista_iteraciones,lista_costos)
     #plt.xlabel('Temperatura')
     #plt.ylabel('Costo')
-    plt.show()
+    #plt.show()
 
 
-    return costo_anterior
+    return costo_minimo
 
 # main
 if __name__ == '__main__':

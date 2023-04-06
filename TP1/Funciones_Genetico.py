@@ -2,7 +2,7 @@ import numpy as np
 import random
 from more_itertools import sort_together
 from Temple import temple_simulado
-from AlgGen_orden import LargoCamino
+
 
 def DeProductosAEstantes(orden,IdEstantes,configuracion):
   orden_E=[]
@@ -15,15 +15,15 @@ def Calidad(Poblacion_P,Ordenes_P,IdEstantes):
 
   Calidad = []
   for configuracion in Poblacion_P:
-    print('configuracion')
+    print('1 individuo')
+
     calidadOrden = 0
     for orden in Ordenes_P:
-      print('orden')
       orden_E=DeProductosAEstantes(orden,IdEstantes,configuracion)
       calidadOrden += temple_simulado(orden_E)/len(orden_E)
     Calidad.append(calidadOrden)
-
-    return Calidad
+    print ("calidad individuo: ",calidadOrden)
+  return Calidad
        
 
 def Cruce(padre1, padre2):
@@ -76,7 +76,6 @@ def Mutacion(Individuo,cantidad):
 
 def Convergencia(calidades,N):
   #ordenar las calidades de menor a mayor
-  calidades.sort()
   calidades=list(calidades)
   #contar la canticade de elementos que son iguales
   Iguales=calidades.count(calidades[0])
