@@ -4,8 +4,8 @@ import pandas as pd
 import random
 
 
-N_poblacionTotal=10
-N_poblacionInter=5
+N_poblacionTotal=12
+N_poblacionInter=7
 iter_max=1000
 
 IdEstantes=pd.read_csv('ID_estantes.csv')
@@ -49,8 +49,10 @@ for k in range(iter_max):
         CalidadP=Calidad(Poblacion,ordenes,IdEstantes)
     else:
         for c in CalidadP:
-           print("Calidad ind(fijo)",c)
+           print("\tCalidad ind(fijo)",c)
+        t0=time.time()
         CalidadP=CalidadP+Calidad(Poblacion[fijos:],ordenes,IdEstantes)
+        print(t0-time.time())
 
 
 #SELECCION
@@ -72,10 +74,19 @@ for k in range(iter_max):
     
         Padres=random.sample(PoblacionInter,2)
         hijo1,hijo2=Cruce(Padres[0],Padres[1])
-        hijo1M=Mutacion(hijo1,10)
-        hijo2M=Mutacion(hijo2,10)
+        hijo1M=Mutacion(hijo1,6)
+        hijo2M=Mutacion(hijo2,6)
         Poblacion.append(hijo1M)
         Poblacion.append(hijo2M)
+
+    #guardar la poblacion  en un archivo csv usando
+    with open('poblacion.txt', 'w') as file:
+        for i in range(len(Poblacion)):
+            file.write(str(Poblacion[i]))
+            file.write('\n')
+
+
+
 
 
 
