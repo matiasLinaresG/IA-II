@@ -44,27 +44,26 @@ if nofijos%2!=0:
 
 for k in range(iter_max):
     print("ITERACION NUMERO: ",k)
-
+#CALIDAD
     if k==0:
         CalidadP=Calidad(Poblacion,ordenes,IdEstantes)
     else:
         CalidadP.append(Calidad(Poblacion[fijos+1:],ordenes,IdEstantes))
-
+#SELECCION
     CalidadPInter,PoblacionInter=SelecionarPoblacion(Poblacion,CalidadP,N_poblacionInter)
-
+#CONVERGENCIA
     #if Convergencia(CalidadPInter,N_poblacionInter-5):
     #    break
 
     print("Calidad minimina individuo: ",min(CalidadP))
-
+#GENERACION DE UNA NUEVA POBLACION  <<========
     Poblacion=[]
     CalidadP=[]
-
-
+#FIJOS
     for i in range(fijos):
         Poblacion.append(PoblacionInter[i])
         CalidadP.append(CalidadPInter[i])
-    
+#CRUCE Y MUTACION    
     for i in range(int(nofijos/2)):
     
         Padres=random.sample(PoblacionInter,2)
@@ -74,9 +73,6 @@ for k in range(iter_max):
         Poblacion.append(hijo1M)
         Poblacion.append(hijo2M)
 
-        # print("     --------------------------------------------")
-        # print("     "+str(Padres[0])+"-->"+str(hijo1)+"-->"+str(hijo1M))
-        # print("     "+str(Padres[1])+"-->"+str(hijo2)+"-->"+str(hijo2M))
 
 
 
