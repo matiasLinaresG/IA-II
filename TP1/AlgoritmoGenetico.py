@@ -51,7 +51,11 @@ for k in range(iter_max):
         for c in CalidadP:
            print("\tCalidad ind(fijo)",c)
         CalidadP=CalidadP+Calidad(Poblacion[fijos:],ordenes,IdEstantes)
+<<<<<<< Updated upstream
         
+=======
+        print("Tiempo que tarde: "+str(abs(t0-time.time())))
+>>>>>>> Stashed changes
 
 
 #SELECCION
