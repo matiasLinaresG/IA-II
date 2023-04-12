@@ -44,7 +44,7 @@ if nofijos%2!=0:
 
 for k in range(iter_max):
     print("ITERACION NUMERO: ",k)
-#CALIDAD
+#CALIDAD. La idea es no calcular otra vez la calidad de los fijos
     if k==0:
         CalidadP=Calidad(Poblacion,ordenes,IdEstantes)
     else:
