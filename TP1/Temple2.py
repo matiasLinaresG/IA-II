@@ -47,19 +47,27 @@ def temple_simulado(ListaEstantes):
     lista_temp= []
     lista_iteraciones = []
 
+    Terminar = False
+    iter=0
     for j in range(len(Temperatura["Temperatura"])):
+        iter+=1
         costo_actual = 0
 
-        #eligo un indice de la lista al azar
-        indice = random.randint(1, len(lista) - 2)
-        #eligo un segundo indice de la lista al azar que no sea el mismo que el anterior
-        indice2 = indice+1
-        if indice2 > len(lista) - 2:
-            indice2 = indice - 1
+        if len(lista) > 3:
+            #eligo un indice de la lista al azar
+            indice = random.randint(1, len(lista) - 2)
+            #eligo un segundo indice de la lista al azar que no sea el mismo que el anterior
+            indice2 = indice+1
+            if indice2 > len(lista) - 2:
+                indice2 = indice - 1
 
-        #intercambio los elementos de las posiciones elegidas
-        lista[indice], lista[indice2] = lista[indice2], lista[indice]
+            #intercambio los elementos de las posiciones elegidas
+            lista[indice], lista[indice2] = lista[indice2], lista[indice]
+        else:
+            Terminar = True
 
+        #if iter>1000:
+        #    Terminar = True
 
         # #aleatorizar lista
         # random.shuffle(lista)
@@ -145,17 +153,8 @@ def temple_simulado(ListaEstantes):
         lista_temp.append(temp_actual)
         lista_iteraciones.append(len(lista_costos))
 
-
-    print("\n\n\nLA SOLUCION ES:")
-    print(solution)
-
-    print("\n\n\nEl costo de la solucion es:")
-    print(costo_anterior)
-    #plotear costo anterior vs temperatura
-    plt.scatter(lista_iteraciones,lista_costos)
-    #plt.xlabel('Temperatura')
-    #plt.ylabel('Costo')
-    plt.show()
+        if Terminar:
+            break
 
 
     return costo_anterior

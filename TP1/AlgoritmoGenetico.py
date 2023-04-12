@@ -50,9 +50,8 @@ for k in range(iter_max):
     else:
         for c in CalidadP:
            print("\tCalidad ind(fijo)",c)
-        t0=time.time()
         CalidadP=CalidadP+Calidad(Poblacion[fijos:],ordenes,IdEstantes)
-        print(t0-time.time())
+        
 
 
 #SELECCION
