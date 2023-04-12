@@ -26,7 +26,7 @@ def Calidad(Poblacion_P,Ordenes_P,IdEstantes):
     Calidad.append(calidadOrden)
 
     print ("\tcalidad individuo: ",calidadOrden)
-  return Calidad
+  return list(Calidad)
        
 
 def Cruce(padre1, padre2):
@@ -79,4 +79,4 @@ def SelecionarPoblacion(Poblacion,calidad,Cantidad):
   CalidadOrd,PoblacionOrdenada = list(sort_together([calidad, Poblacion]))
 
   
-  return(CalidadOrd[:Cantidad],list(PoblacionOrdenada[:Cantidad]))
+  return(list(CalidadOrd[:Cantidad]),list(PoblacionOrdenada[:Cantidad]))

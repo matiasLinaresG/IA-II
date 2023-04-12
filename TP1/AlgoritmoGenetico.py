@@ -48,7 +48,11 @@ for k in range(iter_max):
     if k==0:
         CalidadP=Calidad(Poblacion,ordenes,IdEstantes)
     else:
-        CalidadP.append(Calidad(Poblacion[fijos+1:],ordenes,IdEstantes))
+        for c in CalidadP:
+           print("Calidad ind(fijo)",c)
+        CalidadP=CalidadP+Calidad(Poblacion[fijos:],ordenes,IdEstantes)
+
+
 #SELECCION
     CalidadPInter,PoblacionInter=SelecionarPoblacion(Poblacion,CalidadP,N_poblacionInter)
 #CONVERGENCIA
@@ -60,9 +64,9 @@ for k in range(iter_max):
     Poblacion=[]
     CalidadP=[]
 #FIJOS
-    for i in range(fijos):
-        Poblacion.append(PoblacionInter[i])
-        CalidadP.append(CalidadPInter[i])
+
+    Poblacion=PoblacionInter[:fijos]
+    CalidadP=CalidadPInter[:fijos]
 #CRUCE Y MUTACION    
     for i in range(int(nofijos/2)):
     
