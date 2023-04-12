@@ -10,7 +10,7 @@ import numpy as np
 
 
 class Mapa:
-    def __init__(self,n_estantes = 100):
+    def __init__(self,n_estantes = 20):
         # Generacion automatica de la matriz
         # La celda unitaria es la que se puede repetir en todas direcciones, esta contiene 8 estantes
         celda_unitaria_mapa = np.array([[' ', ' ', ' ', ' '],

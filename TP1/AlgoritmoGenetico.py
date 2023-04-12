@@ -33,34 +33,37 @@ Poblacion=[]
 for i in range(N_poblacionTotal):
   Poblacion.append(np.random.permutation(IdProductos).tolist()) 
 
+fijos=round(N_poblacionInter*0.4)
+nofijos=N_poblacionTotal-fijos
+
+if nofijos%2!=0:
+    nofijos+=1
+    fijos-=1
+
+
 
 for k in range(iter_max):
-    print(k)
-    CalidadP=Calidad(Poblacion,ordenes,IdEstantes)
-    print('calidad lista')
+    print("ITERACION NUMERO: ",k)
+
+    if k==0:
+        CalidadP=Calidad(Poblacion,ordenes,IdEstantes)
+    else:
+        CalidadP.append(Calidad(Poblacion[fijos+1:],ordenes,IdEstantes))
+
     CalidadPInter,PoblacionInter=SelecionarPoblacion(Poblacion,CalidadP,N_poblacionInter)
-    print('seleccion lista')
+
     #if Convergencia(CalidadPInter,N_poblacionInter-5):
     #    break
 
-#================================================================================================
-#    print("--------------------------------------------")
- #   for i in range(len(PoblacionInter)):
-  #    print("C="+str(CalidadP[Poblacion.index(PoblacionInter[i])])+', '+str(PoblacionInter[i]))
-   # pause=input("Presione enter para continuar")
-#================================================================================================
+    print("Calidad minimina individuo: ",min(CalidadP))
 
     Poblacion=[]
-    fijos=round(N_poblacionInter*0.4)
-    nofijos=N_poblacionTotal-fijos
+    CalidadP=[]
 
-    if nofijos%2!=0:
-        nofijos+=1
-        fijos-=1
 
     for i in range(fijos):
         Poblacion.append(PoblacionInter[i])
-
+        CalidadP.append(CalidadPInter[i])
     
     for i in range(int(nofijos/2)):
     
