@@ -12,21 +12,26 @@ def DeProductosAEstantes(orden,IdEstantes,configuracion):
   return orden_E
 
     
-
-def Calidad(Poblacion_P,Ordenes_P,IdEstantes):
+def Calidad(Poblacion_P, Ordenes_P, IdEstantes):
 
   Calidad = []
   for configuracion in Poblacion_P:
-
-    calidadOrden = 0
-
+    t0 = time.time()
+    suma = 0
+    divisor = len(Ordenes_P)
+    
     for orden in Ordenes_P:
-      orden_E=DeProductosAEstantes(orden,IdEstantes,configuracion)
-      calidadOrden += temple_simulado(orden_E)/len(orden_E)
+        # Seria util que el temple simulado se ejecute de forma concurrente pero son muchas ordenes.
+        # Convierto la orden a una lista de estantes en donde estan esos productos.
+        orden_E = DeProductosAEstantes(orden, IdEstantes, configuracion)
+        suma += temple_simulado(orden_E)
+    # La calidad del individuo es el promedio de lo que se demora en cumplir cada orden
+    calidadOrden = suma / divisor
+        
     Calidad.append(calidadOrden)
-    print ("\tcalidad individuo: ",calidadOrden)
+    print("\tcalidad individuo: "+str(calidadOrden)+" tiempo calculo: "+str(time.time()-t0))
   return list(Calidad)
-       
+
 
 def Cruce(padre1, padre2):
     hijo1 = []
