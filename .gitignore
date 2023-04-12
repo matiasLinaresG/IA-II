@@ -1,0 +1,5 @@
+
+*.pyc
+*.ini
+*.bak
+__pycache__
