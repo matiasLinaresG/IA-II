@@ -63,11 +63,8 @@ def Cruce(padre1, padre2):
     return hijo1, hijo2
 
 def Mutacion(Individuo,cantidad):
-  Copia=list(np.copy(Individuo))
+  Copia=Individuo.copy()
 
-  Partida=Copia[0]
-  Entrega=Copia[-1]
-  Copia=Copia[1:-1]
 
   for i in range(cantidad):
     #selecionar 2 puntos al azar
@@ -76,8 +73,6 @@ def Mutacion(Individuo,cantidad):
     #intercambiar
     Copia[punto1],Copia[punto2]=Copia[punto2],Copia[punto1]
 
-  Copia.insert(0,Partida)
-  Copia.append(Entrega)
 
   return list(Copia)
 

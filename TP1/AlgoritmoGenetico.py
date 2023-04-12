@@ -4,8 +4,8 @@ import pandas as pd
 import random
 
 
-N_poblacionTotal=20
-N_poblacionInter=10
+N_poblacionTotal=10
+N_poblacionInter=5
 iter_max=1000
 
 IdEstantes=pd.read_csv('ID_estantes.csv')
@@ -40,8 +40,8 @@ for k in range(iter_max):
     print('calidad lista')
     CalidadPInter,PoblacionInter=SelecionarPoblacion(Poblacion,CalidadP,N_poblacionInter)
     print('seleccion lista')
-    if Convergencia(CalidadPInter,N_poblacionInter-5):
-        break
+    #if Convergencia(CalidadPInter,N_poblacionInter-5):
+    #    break
 
 #================================================================================================
 #    print("--------------------------------------------")
@@ -66,8 +66,8 @@ for k in range(iter_max):
     
         Padres=random.sample(PoblacionInter,2)
         hijo1,hijo2=Cruce(Padres[0],Padres[1])
-        hijo1M=Mutacion(hijo1,5)
-        hijo2M=Mutacion(hijo2,5)
+        hijo1M=Mutacion(hijo1,10)
+        hijo2M=Mutacion(hijo2,10)
         Poblacion.append(hijo1M)
         Poblacion.append(hijo2M)
 
