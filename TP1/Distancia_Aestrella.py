@@ -21,7 +21,7 @@ print(IdAlmacen)
 #nueva_fila = pd.DataFrame({'Nombre': ['Luis'], 'Edad': [33], 'Ciudad': ['Cusco']})
 #df = pd.concat([nueva_fila, df]).reset_index(drop=True)
 
-IdAlmacen.loc[len(IdAlmacen)]=[1001,0,0]
+IdAlmacen.loc[len(IdAlmacen)]=[1001,11,8]
 
 print(IdAlmacen)
 

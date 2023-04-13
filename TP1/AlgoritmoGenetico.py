@@ -16,10 +16,12 @@ def calculatestar(args):
 
 
 if __name__ == '__main__':
-
+    # Ajustes
     N_poblacionTotal = 12
     N_poblacionInter = 7
     iter_max = 11
+    Poblacion_anterior = False
+
 
     IdEstantes = pd.read_csv('ID_estantes.csv')
     IdEstantes = IdEstantes["ID"].values.tolist()
@@ -39,7 +41,7 @@ if __name__ == '__main__':
         IdProductos.append("vacio")
 
     Poblacion = []
-    Poblacion_anterior = True
+    
     if Poblacion_anterior:
         # levantar la poblacion del archivo txt "poblacion"
         with open('poblacion.txt', 'r') as file:
