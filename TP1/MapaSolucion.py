@@ -59,16 +59,13 @@ if __name__ == '__main__':
     # ordenar la poblacion de mayor a menor calidad
     CalidadOrd, PoblacionOrdenada = list(sort_together([calidad, Poblacion]))
 
-    for producto in Poblacion[1]:
-       if producto=="vacio":
+    for i in range(len(Poblacion[0])):
+       if PoblacionOrdenada[0][i]=="vacio":
            continue
-       #de producto a estante
-       index_estante=IdProductos.index(producto)
-       #de estante a coordenada
-       #valor de la columna "I" donde la columna "ID" sea igual a IDestante
-       I=IdAlmacen["I"][index_estante]
-       J=IdAlmacen["J"][index_estante]
-       mapa[I][J]=producto
+
+       I=IdAlmacen["I"][i]
+       J=IdAlmacen["J"][i]
+       mapa[I][J]=PoblacionOrdenada[0][i]
 
     # mostrar mapa
 
