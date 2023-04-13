@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
     N_poblacionTotal = 12
     N_poblacionInter = 7
-    iter_max = 100
+    iter_max = 11
 
     IdEstantes = pd.read_csv('ID_estantes.csv')
     IdEstantes = IdEstantes["ID"].values.tolist()
@@ -39,7 +39,7 @@ if __name__ == '__main__':
         IdProductos.append("vacio")
 
     Poblacion = []
-    Poblacion_anterior = False
+    Poblacion_anterior = True
     if Poblacion_anterior:
         # levantar la poblacion del archivo txt "poblacion"
         with open('poblacion.txt', 'r') as file:
@@ -60,7 +60,9 @@ if __name__ == '__main__':
     if nofijos % 2 != 0:
         nofijos -= 1
         fijos += 1
-
+    # Timestamp para el tiempo total de ejecucion
+    t1 = time.time()
+    
     for k in range(iter_max):
         print("ITERACION NUMERO: ", k)
     # CALIDAD. La idea es no calcular otra vez la calidad de los fijos
@@ -131,11 +133,11 @@ if __name__ == '__main__':
                         file.write(",")
                 if i < len(Poblacion)-1:
                     file.write("\n")
-
+    
     print("==============RESPUESTA===============")
     solucion = Poblacion[list(CalidadP).index(min(CalidadP))]
-
-    print("Número de iteraciones: "+str(k))
+    print("Tarde: {}s en hacer {} iteraciones".format(time.time()-t1,k))
+    # print("Número de iteraciones: "+str(k))
     print("Distancia mas corta: "+str(min(CalidadP)))
     # print("Solución: "+str(solucion))
     # print("Última poblacion intermedia: ")

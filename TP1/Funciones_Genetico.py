@@ -2,7 +2,6 @@ import numpy as np
 import random
 from more_itertools import sort_together
 from Temple2 import temple_simulado
-import time
 
 
 def DeProductosAEstantes(orden, IdEstantes, configuracion):
@@ -28,7 +27,7 @@ def Calidad_individual(Individuo, Ordenes_P, IdEstantes):
         # Seria util que el temple simulado se ejecute de forma concurrente pero son muchas ordenes.
         # Convierto la orden a una lista de estantes en donde estan esos productos.
         orden_E = DeProductosAEstantes(orden, IdEstantes, Individuo)
-        suma += temple_simulado(orden_E)
+        suma += temple_simulado(orden_E)/len(orden_E)
     # La calidad del individuo es el promedio de lo que se demora en cumplir cada orden
     calidadOrden = suma / divisor
     
