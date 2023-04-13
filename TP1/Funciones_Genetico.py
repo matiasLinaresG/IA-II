@@ -37,6 +37,12 @@ def Calidad_individual(Individuo, Ordenes_P, IdEstantes):
     return calidadOrden
 
 def Cruce(padre1, padre2):
+
+    #numero random entre 0 y 1
+    if random.random() < 0.2:
+        return padre1, padre2
+
+
     hijo1 = []
     hijo2 = []
     # cantidad de elementos igual a "vac" en padre1
