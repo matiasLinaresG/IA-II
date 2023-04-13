@@ -1,2 +1,3 @@
-A=[1,2,3,4,5,6,7]
-print(A[2:])
+import pandas as pd
+IdAlmacen=pd.read_csv('ID_estantes.csv')
+print(IdAlmacen)
