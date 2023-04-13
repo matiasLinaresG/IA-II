@@ -46,11 +46,11 @@ for producto in Poblacion[0]:
     if producto=="vacio":
         continue
     #de producto a estante
-    IDestante=IdProductos.index(producto)
+    index_estante=IdProductos.index(producto)
     #de estante a coordenada
     #valor de la columna "I" donde la columna "ID" sea igual a IDestante
-    I=IdAlmacen[IdAlmacen["ID"]==IDestante]["I"].values[0]
-    J=IdAlmacen[IdAlmacen["ID"]==IDestante]["J"].values[0]
+    I=IdAlmacen["I"][index_estante]
+    J=IdAlmacen["J"][index_estante]
     mapa[I][J]=producto
     
 
