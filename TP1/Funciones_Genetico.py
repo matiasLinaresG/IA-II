@@ -68,7 +68,12 @@ def Cruce(padre1, padre2):
     return hijo1, hijo2
 
 
-def Mutacion(Individuo, cantidad):
+def Mutacion(Individuo, Cantidad):
+
+    #numero random entre 1 y cantidad
+    cantidad= random.randint(1, Cantidad)
+
+
     Copia = Individuo.copy()
 
     for i in range(cantidad):
