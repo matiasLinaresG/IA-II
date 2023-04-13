@@ -13,17 +13,6 @@ def calculate(func, args):
 def calculatestar(args):
     return calculate(*args)
 
-for producto in Poblacion[0]:
-    if producto=="vacio":
-        continue
-    #de producto a estante
-    index_estante=IdProductos.index(producto)
-    #de estante a coordenada
-    #valor de la columna "I" donde la columna "ID" sea igual a IDestante
-    I=IdAlmacen["I"][index_estante]
-    J=IdAlmacen["J"][index_estante]
-    mapa[I][J]=producto
-
 if __name__ == '__main__':
 
     with open('poblacion.txt', 'r') as file:
@@ -70,16 +59,16 @@ if __name__ == '__main__':
     # ordenar la poblacion de mayor a menor calidad
     CalidadOrd, PoblacionOrdenada = list(sort_together([calidad, Poblacion]))
 
-    for producto in Poblacion[0]:
-        if producto == "vacio":
-            continue
-        # de producto a estante
-        IDestante = IdProductos.index(producto)
-        # de estante a coordenada
-        # valor de la columna "I" donde la columna "ID" sea igual a IDestante
-        I = IdAlmacen[IdAlmacen["ID"] == IDestante]["I"].values[0]
-        J = IdAlmacen[IdAlmacen["ID"] == IDestante]["J"].values[0]
-        mapa[I][J] = producto
+    for producto in Poblacion[1]:
+       if producto=="vacio":
+           continue
+       #de producto a estante
+       index_estante=IdProductos.index(producto)
+       #de estante a coordenada
+       #valor de la columna "I" donde la columna "ID" sea igual a IDestante
+       I=IdAlmacen["I"][index_estante]
+       J=IdAlmacen["J"][index_estante]
+       mapa[I][J]=producto
 
     # mostrar mapa
 
