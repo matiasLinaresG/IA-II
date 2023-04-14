@@ -21,8 +21,8 @@ IdAlmacen=pd.read_csv('ID_estantes.csv')
 #nueva_fila = pd.DataFrame({'Nombre': ['Luis'], 'Edad': [33], 'Ciudad': ['Cusco']})
 #df = pd.concat([nueva_fila, df]).reset_index(drop=True)
 
-IdAlmacen.loc[len(IdAlmacen)]=[1001,11,8]
-print("Baia en:  11,8") # TODO: Cambiar esto
+IdAlmacen.loc[len(IdAlmacen)]=[1001,0,0]
+print("Baia en:  0,0") # TODO: Cambiar esto
 
 # IdAlmacen.to_csv("ID_estantes.csv")
 

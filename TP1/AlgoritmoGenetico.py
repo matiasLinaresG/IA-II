@@ -17,10 +17,10 @@ def calculatestar(args):
 
 if __name__ == '__main__':
     # Ajustes
-    N_poblacionTotal = 12
-    N_poblacionInter = 7
-    iter_max = 11
-    Poblacion_anterior = True
+    N_poblacionTotal = 20
+    N_poblacionInter = 11
+    iter_max = 501
+    Poblacion_anterior = False
 
 
     IdEstantes = pd.read_csv('ID_estantes.csv')
@@ -121,8 +121,8 @@ if __name__ == '__main__':
 
             Padres = random.sample(PoblacionInter, 2)
             hijo1, hijo2 = Cruce(Padres[0], Padres[1])
-            hijo1M = Mutacion(hijo1, 20)
-            hijo2M = Mutacion(hijo2, 20)
+            hijo1M = Mutacion(hijo1, 25)
+            hijo2M = Mutacion(hijo2, 25)
             Poblacion.append(hijo1M)
             Poblacion.append(hijo2M)
 

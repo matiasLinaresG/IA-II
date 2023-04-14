@@ -68,7 +68,7 @@ if __name__ == '__main__':
        mapa[I][J]=PoblacionOrdenada[0][i]
 
     # Agrego la baia de carga
-    i, j = (11,8)
+    i, j = (0,0)
     mapa[i][j] = "X"
     # mostrar mapa
 

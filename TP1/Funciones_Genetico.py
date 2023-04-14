@@ -39,8 +39,8 @@ def Calidad_individual(Individuo, Ordenes_P, IdEstantes):
 def Cruce(padre1, padre2):
 
     #numero random entre 0 y 1
-    if random.random() < 0.2:
-        return padre1, padre2
+    # if random.random() < 0.2:
+    #     return padre1, padre2
 
 
     hijo1 = []
