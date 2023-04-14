@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # Ajustes
     N_poblacionTotal = 12
     N_poblacionInter = 7
-    iter_max = 51
+    iter_max = 11
     Poblacion_anterior = True
 
 
@@ -79,7 +79,7 @@ if __name__ == '__main__':
                 except mt.TimeoutError:
                     print("Se acabo el tiempo")
                     
-            print("Tarde en calcular: (s) "+str(time.time()-t0))
+            print("\tTarde en calcular: {:.2f}s".format(time.time()-t0))
             # t0 = time.time()
             # CalidadP2 = Calidad(Poblacion, ordenes, IdEstantes)
             # print("A la antigua tardaba en calcular todo: (s) "+str(time.time()-t0))
@@ -94,7 +94,7 @@ if __name__ == '__main__':
                 except mt.TimeoutError:
                     print("Se acabo el tiempo")
             CalidadP += CalidadNOfijos
-            print("Tarde en calcular: (s) "+str(time.time()-t0))
+            print("\tTarde en calcular: {:.2f}s".format(time.time()-t0))
             # t0 = time.time()
             # for c in CalidadP:
             #     print("\tCalidad ind(fijo)", c)
@@ -108,7 +108,7 @@ if __name__ == '__main__':
         # if Convergencia(CalidadPInter,N_poblacionInter-5):
         #    break
 
-        print("Calidad minimina individuo: ", min(CalidadP))
+        print("\tCalidad minimina individuo: ", min(CalidadP))
     # GENERACION DE UNA NUEVA POBLACION  <<========
         Poblacion = []
         CalidadP = []
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     
     print("==============RESPUESTA===============")
     solucion = Poblacion[list(CalidadP).index(min(CalidadP))]
-    print("Tarde: {}s en hacer {} iteraciones".format(time.time()-t1,k))
+    print("Tarde: {:.2f} minutos en hacer {} iteraciones".format((time.time()-t1)/60,k))
     # print("Número de iteraciones: "+str(k))
     print("Distancia mas corta: "+str(min(CalidadP)))
     # print("Solución: "+str(solucion))

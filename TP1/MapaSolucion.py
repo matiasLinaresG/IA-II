@@ -67,6 +67,9 @@ if __name__ == '__main__':
        J=IdAlmacen["J"][i]
        mapa[I][J]=PoblacionOrdenada[0][i]
 
+    # Agrego la baia de carga
+    i, j = (11,8)
+    mapa[i][j] = "X"
     # mostrar mapa
 
     print(pd.DataFrame(mapa))

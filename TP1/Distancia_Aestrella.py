@@ -14,7 +14,7 @@ Costo=np.array(pd.read_csv('costo.csv',header=None, index_col=None))
 #abrir el archivo .csv en una varible llamada "IdAlmacen" en un dataframe
 
 IdAlmacen=pd.read_csv('ID_estantes.csv')
-print(IdAlmacen)
+# print(IdAlmacen)
 
 
 #ejemplo:
@@ -22,8 +22,9 @@ print(IdAlmacen)
 #df = pd.concat([nueva_fila, df]).reset_index(drop=True)
 
 IdAlmacen.loc[len(IdAlmacen)]=[1001,11,8]
+print("Baia en:  11,8") # TODO: Cambiar esto
 
-print(IdAlmacen)
+# IdAlmacen.to_csv("ID_estantes.csv")
 
 Distancias=pd.DataFrame( columns=['id','distancia'])
 
@@ -42,7 +43,7 @@ for i in range(len(IdAlmacen['ID'])-1):
      
 #mostar toda la tabla de distancias, sin truncar
 pd.set_option('display.max_rows', None)
-print(Distancias)
-
+# print(Distancias)
+print("Listo")
 
 Distancias.to_csv('distancias.csv',index=False)
