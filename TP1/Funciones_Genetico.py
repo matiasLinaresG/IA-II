@@ -28,6 +28,8 @@ def Calidad_individual(Individuo, Ordenes_P, IdEstantes):
         # Convierto la orden a una lista de estantes en donde estan esos productos.
         orden_E = DeProductosAEstantes(orden, IdEstantes, Individuo)
         suma += temple_simulado(orden_E)/len(orden_E)
+        # suma += temple_simulado(orden_E)
+        
     # La calidad del individuo es el promedio de lo que se demora en cumplir cada orden
     calidadOrden = suma / divisor
     

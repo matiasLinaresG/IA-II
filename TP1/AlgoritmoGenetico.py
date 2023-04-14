@@ -17,8 +17,8 @@ def calculatestar(args):
 
 if __name__ == '__main__':
     # Ajustes
-    N_poblacionTotal = 20
-    N_poblacionInter = 11
+    N_poblacionTotal = 12
+    N_poblacionInter = 7
     iter_max = 501
     Poblacion_anterior = False
 
