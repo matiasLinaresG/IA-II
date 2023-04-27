@@ -1,628 +1,578 @@
 orden 1
-p29
-p28
+p4
+p3
 
 orden 2
-p52
-p21
-p53
-p23
-p44
-p88
-p9
-p26
 p7
+p16
+p17
 
 orden 3
-p33
-p19
-p14
-p49
-p7
-p29
+p12
 
 orden 4
-p31
-p3
-p1
-p14
-p4
+p9
+p2
 
 orden 5
-p62
-p23
+p9
+p13
+p11
 p1
-p33
-p5
 
 orden 6
-p21
-p6
-p10
-p18
+p1
 p2
-p5
-p39
-p26
+p20
 
 orden 7
-p21
-
-orden 8
 p6
-p10
 p2
-
-orden 9
-p1
-
-orden 10
+p10
+p5
+p3
 p7
 
-orden 11
-p27
-p23
+orden 8
+p10
 p3
-p17
-p28
+p8
+p18
+p7
+
+orden 9
+p6
+p5
+
+orden 10
+p9
+
+orden 11
 p1
-p4
+p5
+p6
 
 orden 12
-p46
+p6
 
 orden 13
-p4
-p33
+p1
+p5
 
 orden 14
 p5
-p2
-p25
+p11
 
 orden 15
-p16
-
-orden 16
-p49
-p21
-
-orden 17
-p18
+p8
 p11
-p29
-p15
-p14
-
-orden 18
-p19
+p9
 p2
-p39
-p35
-
-orden 19
+p5
 p4
 
+orden 16
+p2
+p8
+
+orden 17
+p1
+
+orden 18
+p14
+p2
+
+orden 19
+p1
+p6
+p2
+p8
+p19
+p3
+
 orden 20
-p40
-p36
-p16
-p13
+p7
+p4
 p10
 
 orden 21
-p13
+p1
+p3
+p2
+p4
+p16
+p25
+p7
+p9
 
 orden 22
-p21
-p15
-p10
-p3
-p1
 p5
 
 orden 23
+p22
+p5
+p17
+p1
 p11
-p6
+p4
+p8
 
 orden 24
-p13
-p14
-p55
-p27
-
-orden 25
-p1
-p11
-p32
-p5
-p13
-p19
-p16
-
-orden 26
+p9
+p3
 p7
 p2
-p76
-p34
-p17
-p25
+p6
+
+orden 25
+p3
+p8
+
+orden 26
+p2
+p8
 p5
+p10
+p11
 
 orden 27
-p68
-p45
-p19
+p1
+p2
+p8
+p3
+p10
+p4
 
 orden 28
-p35
-p3
+p11
+p8
+p1
+p6
 p2
-p24
+p4
 
 orden 29
-p6
+p8
+p3
 
 orden 30
-p44
-p2
-p55
-p53
+p4
+p5
+p12
 
 orden 31
-p30
-p13
+p2
 
 orden 32
-p1
-p64
+p4
 p5
-p11
-p6
-p3
-p19
-p60
 
 orden 33
-p33
-p9
-p45
-p18
+p25
+p1
+p3
 
 orden 34
-p33
-p2
-p20
-p11
-p10
-p1
 p4
 
 orden 35
-p60
+p2
+p6
 
 orden 36
-p7
-p30
-p5
-p16
+p1
+p2
 p17
-p33
-p4
-p49
+p12
+p11
+p3
+p5
 
 orden 37
-p19
-p27
 p2
+p18
+p10
+p4
+p1
+p19
+p6
+p5
+p8
 
 orden 38
-p25
-p92
-p82
+p1
 
 orden 39
-p8
+p9
+p1
 p5
-p2
+p14
+p3
 
 orden 40
-p58
-p7
-p11
-p79
-p20
+p9
 p1
+p5
 p2
-p16
-p41
-p24
+p4
+p6
+p14
+p15
+p11
 
 orden 41
-p5
-p45
-p12
 p8
-p3
-p16
-p15
-p19
 p1
+p3
 
 orden 42
-p12
-p100
-p35
 p10
+p1
+p2
+p15
+p4
+p8
+p7
+p5
+p13
 
 orden 43
-p20
+p2
+p7
+p15
 
 orden 44
-p17
-p5
-p37
-p21
+p1
 
 orden 45
-p39
-p55
 p1
-p43
-p5
 p2
-p95
-p20
-p9
-p14
+p5
+p15
 
 orden 46
-p17
-p38
+p5
+p6
+p4
 
 orden 47
-p4
+p3
+p5
+p7
+p21
+p12
 
 orden 48
-p17
-p30
-p39
-p14
+p3
 
 orden 49
-p15
-p5
-p24
-p13
-p4
+p3
+p16
+p11
 
 orden 50
-p3
+p8
 
 orden 51
-p13
-p38
-p18
-p10
-p35
 p14
+p3
 p2
-p28
+p6
+p9
+p11
 
 orden 52
-p34
-p9
-p22
+p1
 
 orden 53
-p8
-p23
-p4
-p25
+p12
+p2
+p3
 p16
+p11
+p14
+p4
+p8
 
 orden 54
-p22
-p40
-p4
+p2
+p3
+p1
+p12
+p5
+p7
+p8
 
 orden 55
-p7
-p15
-p44
-p14
-p5
-p13
-p12
-
-orden 56
-p4
-
-orden 57
-p8
-p3
-p12
-
-orden 58
-p10
-p13
-p3
+p2
 p6
-p8
-p1
-p25
-
-orden 59
-p14
-p7
-p9
-p26
-p5
-p39
-p11
+p22
 p4
-p21
-
-orden 60
-p23
+p7
 p17
 
-orden 61
+orden 56
+p11
+p4
 p6
-p25
+p10
+p3
+
+orden 57
+p3
+
+orden 58
+p3
+p12
+p2
+p4
+p1
+
+orden 59
+p4
+p1
+
+orden 60
+p6
 p9
-p15
+
+orden 61
+p11
+p4
 
 orden 62
-p28
-p20
-p6
-p8
-p23
-p37
-p11
-p16
+p1
+p3
+p21
+p2
+p4
 
 orden 63
-p19
-p6
-p27
-p24
-p8
-p18
-p4
 p2
 
 orden 64
-p28
-p13
-p7
-p9
-p8
-p19
-p27
-p17
+p4
+p6
+p11
+p1
 
 orden 65
-p18
-p17
+p16
+p1
+p3
+p9
+p12
+p2
+p8
+p4
+p22
 
 orden 66
-p4
-p48
-p9
 p11
+p21
+p3
+p10
+p17
+p7
 p1
-p16
-p39
-p41
+p4
 
 orden 67
-p6
-
-orden 68
-p13
-
-orden 69
-p5
 p1
-p21
-p13
-p23
-p31
-p41
-p2
-
-orden 70
-p9
-
-orden 71
-p30
-p15
-p26
-
-orden 72
-p22
-p8
-p13
-p16
-p20
-
-orden 73
-p22
-
-orden 74
-p31
-p36
-p4
-
-orden 75
-p16
-p68
-
-orden 76
-p50
-p48
-p7
-p12
-
-orden 77
-p17
-p12
-p4
-
-orden 78
-p43
-p23
-p9
-p14
-p21
-
-orden 79
-p16
-
-orden 80
-p43
-p49
-p19
-p38
-p58
-p16
-p31
-p42
-p9
-p26
-
-orden 81
-p1
-p11
-p31
-p26
-p9
-p13
-p7
-
-orden 82
-p19
-p45
-p1
-p21
-p16
-p27
-p5
-p7
-
-orden 83
-p26
-p44
-p12
-
-orden 84
-p25
-p43
-p15
-p1
-
-orden 85
-p18
-p6
-p35
-p59
-p10
-p28
-p1
-p15
-p4
-
-orden 86
-p20
-p12
 p2
 p7
 p3
-
-orden 87
-p9
-
-orden 88
-p7
-p41
-p9
-p28
-p6
-
-orden 89
-p4
-p35
-p80
-p24
-p8
-p6
-
-orden 90
-p18
-
-orden 91
-p36
-p11
-
-orden 92
-p31
-p7
-p21
-p29
-p14
-p30
-p17
-
-orden 93
-p30
-p13
-p8
-p44
-p10
-
-orden 94
-p12
-p29
-p10
-p27
-p64
-
-orden 95
-p37
-p4
-p22
 p15
+
+orden 68
+p3
+p20
 p5
 
-orden 96
-p13
-p97
-p35
+orden 69
+p7
+
+orden 70
+p7
 p17
-p7
 
-orden 97
+orden 71
+p3
+p2
 p7
-p10
-p5
+p6
 p1
-p15
 
-orden 98
+orden 72
+p2
+p7
+p1
+p10
+
+orden 73
+p12
+p3
+
+orden 74
+p3
+p11
+p1
+p6
+
+orden 75
+p1
+p6
+p2
+p21
 p5
-p16
-p9
+p3
 
-orden 99
-p45
+orden 76
+p2
+p7
+p8
+p12
+p5
+p4
+p3
+
+orden 77
+p1
+
+orden 78
+p3
+p1
+p2
+p20
+p6
+p7
+p4
+p15
+p10
+p14
+
+orden 79
+p5
 p2
 
-orden 100
-p17
+orden 80
+p1
+p22
 p13
-p5
-p58
 p6
+p18
+p4
+
+orden 81
+p4
+
+orden 82
+p2
+p3
+p6
+p15
+
+orden 83
+p3
+p1
+p10
+p2
+p6
+p8
+p4
+
+orden 84
+p2
+
+orden 85
+p3
+p10
+p1
+p4
+
+orden 86
+p4
+p3
+p1
+p12
+p10
+p17
+p6
+
+orden 87
+p8
+p4
+
+orden 88
+p21
+p12
+p1
+
+orden 89
+p12
+
+orden 90
+p9
+
+orden 91
+p1
+p2
+p11
+p8
+p6
+p5
+
+orden 92
+p2
+p3
+p7
+p1
+p15
+p8
+p4
+p10
+p5
+
+orden 93
+p1
+p4
+p12
+p6
+p14
+p9
+p19
+
+orden 94
+p1
+
+orden 95
+p2
+p3
+
+orden 96
+p11
+p23
+p13
+
+orden 97
+p17
+
+orden 98
+p13
+p9
+p11
+
+orden 99
+p9
+p7
+p3
+p4
+p1
+p8
+p5
+
+orden 100
+p8
+p2
+p4
 

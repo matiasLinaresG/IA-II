@@ -4,7 +4,7 @@ import random
 
 
 N_ordenes=100
-N_maxProductos=100
+N_maxProductos=25
 
 #Generar ordenes de la forma 
 #orden 1
@@ -27,7 +27,7 @@ for i in range(N_ordenes):
         N=-1
         while N<0 or N in productos or N>N_maxProductos:
             #distribucion geometrica
-            N = round(np.random.geometric(0.05))
+            N = round(np.random.geometric(0.15))
 
             #N=int(np.random.normal(0, 5, 1))
         productos.append(N)
