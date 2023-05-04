@@ -78,7 +78,7 @@ def evaluar_reglas(posicion, velocidad):
 #Definir la función para obtener la salida concreta
 def obtener_salida(posicion, velocidad):
     salida_borrosa = evaluar_reglas(posicion, velocidad)
-    return implicacion(fuerza, salida_borrosa)regla1 = fuzz.relation_min(posicion_izq, velocidad_neg)
+    return implicacion(fuerza, salida_borrosa)
 
 #Definir las operaciones borrosas de conjunción, disyunción e implicación
 conjuncion = np.fmin
