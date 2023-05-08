@@ -13,7 +13,7 @@ CONSTANTE_l = 1 # Longitud dela pertiga
 theta = ctrl.Antecedent(np.arange(-90, 91, 1), 'theta') # Angulo de la pertiga con respecto a la vertical
 dtheta = ctrl.Antecedent(np.arange(-10, 11, 1), 'dtheta') # Velocidad angular de la pertiga
 
-# Se definen las particiones borrosas para las variables de entrada
+# Se definen las particiones borrosas para las variables de entrada, las particiones borrosas presentan forma de triangulo
 theta['NL'] = fuzz.trimf(theta.universe, [-90, -90, -45]) # NL: Negative Large
 theta['NM'] = fuzz.trimf(theta.universe, [-90, -45, 0]) # NM: Negative Medium
 theta['NS'] = fuzz.trimf(theta.universe, [-45, 0, 45]) # NS: Negative Small
@@ -40,6 +40,44 @@ force['NS'] = fuzz.trimf(force.universe, [-5, 0, 5]) # NS: Negative Small
 force['ZR'] = fuzz.trimf(force.universe, [-1, 0, 1]) # ZR: Zero
 force['PS'] = fuzz.trimf(force.universe, [0, 5, 10]) # PS: Positive Small
 force['PM'] = fuzz.trimf(force.universe, [5, 10, 10]) # PM: Positive Medium
+
+#se muestran las graficas de las particiones borrosas
+# theta.view()
+# dtheta.view()
+# force.view()
+#version resumida de las graficas de las particiones borrosas en una misma ventana
+
+#se muestran las graficas de las particiones borrosas en una misma ventana
+fig, (ax0, ax1, ax2) = plt.subplots(nrows=3, figsize=(8, 9))
+ax0.plot(theta.universe, theta['NL'].mf, 'b', linewidth=1.5, label='NL')
+ax0.plot(theta.universe, theta['NM'].mf, 'g', linewidth=1.5, label='NM')
+ax0.plot(theta.universe, theta['NS'].mf, 'r', linewidth=1.5, label='NS')
+ax0.plot(theta.universe, theta['ZR'].mf, 'y', linewidth=1.5, label='ZR')
+ax0.plot(theta.universe, theta['PS'].mf, 'm', linewidth=1.5, label='PS')
+ax0.plot(theta.universe, theta['PM'].mf, 'c', linewidth=1.5, label='PM')
+ax0.plot(theta.universe, theta['PL'].mf, 'k', linewidth=1.5, label='PL')
+ax0.set_title('Angulo de la pertiga')
+ax0.legend()
+
+ax1.plot(dtheta.universe, dtheta['NL'].mf, 'b', linewidth=1.5, label='NL')
+ax1.plot(dtheta.universe, dtheta['NM'].mf, 'g', linewidth=1.5, label='NM')
+ax1.plot(dtheta.universe, dtheta['NS'].mf, 'r', linewidth=1.5, label='NS')
+ax1.plot(dtheta.universe, dtheta['ZR'].mf, 'y', linewidth=1.5, label='ZR')
+ax1.plot(dtheta.universe, dtheta['PS'].mf, 'm', linewidth=1.5, label='PS')
+ax1.plot(dtheta.universe, dtheta['PM'].mf, 'c', linewidth=1.5, label='PM')
+ax1.plot(dtheta.universe, dtheta['PL'].mf, 'k', linewidth=1.5, label='PL')
+ax1.set_title('Velocidad angular de la pertiga')
+ax1.legend()
+
+ax2.plot(force.universe, force['NL'].mf, 'b', linewidth=1.5, label='NL')
+ax2.plot(force.universe, force['NM'].mf, 'g', linewidth=1.5, label='NM')
+ax2.plot(force.universe, force['NS'].mf, 'r', linewidth=1.5, label='NS')
+ax2.plot(force.universe, force['ZR'].mf, 'y', linewidth=1.5, label='ZR')
+ax2.plot(force.universe, force['PS'].mf, 'm', linewidth=1.5, label='PS')
+ax2.plot(force.universe, force['PM'].mf, 'c', linewidth=1.5, label='PM')
+ax2.set_title('Fuerza aplicada al carro')
+ax2.legend()
+
 
 # Se definen las reglas de inferencia
 rule1 = ctrl.Rule(theta['NL'] & dtheta['NL'], force['PM']) # Regla 1: Si theta es NL y dtheta es NL, entonces force es PM
