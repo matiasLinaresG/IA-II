@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # Definir las variables lingüísticas de entrada y salida
 #np.arange(start, stop, step) # Genera un arreglo de números desde start hasta stop con incrementos de step
 
-posicion = np.arange(-10, 11, 1) # Posición del carro (-10 a 10) en cm
+posicion = np.arange(-10, 11, 1) # Posición del carro (-10 a 10) en cmasd
 velocidad = np.arange(-10, 11, 1) # Velocidad del carro (-10 a 10) en cm/s
 fuerza = np.arange(-100, 101, 1) # Fuerza ejercida sobre el carro (-100 a 100) en N
 
