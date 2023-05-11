@@ -69,13 +69,16 @@ ax2.legend()
 plt.tight_layout()
 plt.show()
 
-#Definir las reglas de inferencia difusa
-#fuzz.relation_min() es la función que se utiliza para definir las reglas de inferencia difusa
-#fuzz.relation_min() toma dos argumentos: el primer argumento es la función de membresía de la variable de entrada y el segundo argumento es la función de membresía de la variable de salida
+# Definir las reglas de inferencia difusa
+# fuzz.relation_min() es la función que se utiliza para definir las reglas de inferencia difusa
+# fuzz.relation_min() toma dos argumentos: el primer argumento es la función de membresía de la variable de entrada y el segundo argumento es la función de membresía de la variable de salida
 
-#agregar consecuente
-#recordar aplicar la regla de disyuncion
-#estandar pep8, usarlo para el codigo
+# agregar consecuente ---> usar lo del Maxi en su otra rama
+# recordar aplicar la regla de disyuncion ---> corregir luego de lo del maxi
+# aplicar las funciones de el otro codigo y agregar importando penduloinvertido
+# estandar pep8, usarlo para el codigo
+
+
 
 # reglas de inferencia difusa para la posición izquierda mayor
 regla1 = fuzz.relation_min(posicion_izqmayor, velocidad_neg_grande)
