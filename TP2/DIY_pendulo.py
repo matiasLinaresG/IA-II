@@ -15,6 +15,12 @@ CONSTANTE_l = 1 # Longitud dela pertiga
 #   v_0: Velocidad angular inicial (radianes/s)
 #   a_0: Aceleracion angular inicial (radianes/s2)
 def simular(t_max, delta_t, theta_0, v_0, a_0):
+  # borrar el arechivo data.txt
+  open('data.txt', 'w').close()
+
+
+
+
   theta = (theta_0 * np.pi) / 180
   v = v_0
   a = a_0
@@ -27,9 +33,15 @@ def simular(t_max, delta_t, theta_0, v_0, a_0):
   for t in x:
     f=ControlDifuso(theta,v)
     F.append(f)
-    a = calcula_aceleracion(theta, v, -f)
+    a = calcula_aceleracion(theta, v, f)
     v = v + a * delta_t
     theta = theta + v * delta_t + a * np.power(delta_t, 2) / 2
+
+    if theta > np.pi:
+      theta = theta - 2 * np.pi
+    elif theta < -np.pi:  
+      theta = theta + 2 * np.pi
+
     y.append(theta)
     V.append(v)
 
@@ -75,12 +87,13 @@ def calcula_aceleracion(theta, v, f):
     denominador = CONSTANTE_l * (4/3 - (CONSTANTE_m * np.power(np.cos(theta), 2) / (CONSTANTE_M + CONSTANTE_m)))
     return numerador / denominador
 
-
+#print(calcula_aceleracion(0, 0, 10))
+#print(calcula_aceleracion(0, 0, -10))
 
 #simular(10, 0.1, 45, 0, 0)
 
 #simular(10, 0.01, 45, 0, 0)
 
-simular(50, 0.001, -1, 0, 0)
+simular(10, 0.001, 47, 0, 0)
 
 #simular(10, 0.0001, 45, 0, 0)

@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 def GraficarFuncionPertenencia(Dominio, alfa):
 
-    posiciones = np.linspace(Dominio[0],Dominio[1],1000)
+    posiciones = np.linspace(Dominio[0]*1.2,Dominio[1]*1.2,1000)
 
     #calcular funcion de pertenencia para cada particion
     NG = []
@@ -36,3 +36,4 @@ def GraficarFuncionPertenencia(Dominio, alfa):
     plt.title('Funciones de pertenencia')
 
     plt.show()
+
