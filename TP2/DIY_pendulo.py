@@ -22,29 +22,50 @@ def simular(t_max, delta_t, theta_0, v_0, a_0):
   # Simular
   y = []
   F=[]
+  V=[]
   x = np.arange(0, t_max, delta_t)
   for t in x:
     f=ControlDifuso(theta,v)
     F.append(f)
-    a = calcula_aceleracion(theta, v, f)
+    a = calcula_aceleracion(theta, v, -f)
     v = v + a * delta_t
     theta = theta + v * delta_t + a * np.power(delta_t, 2) / 2
     y.append(theta)
+    V.append(v)
 
-  fig, ax = plt.subplots()
-  ax.plot(x, y)
+  #fig, ax = plt.subplots()
+  #ax.plot(x, y)
 
 
-  ax.set(xlabel='time (s)', ylabel='theta', title='Delta t = ' + str(delta_t) + " s")
-  ax.grid()
+  #ax.set(xlabel='time (s)', ylabel='theta', title='Delta t = ' + str(delta_t) + " s")
+  #ax.grid()
   
-  plt.show()
+  #plt.show()
   #plot F
-  fig, ax = plt.subplots()
-  ax.plot(x, F)
-  ax.set(xlabel='time (s)', ylabel='F', title='Delta t = ' + str(delta_t) + " s")
-  ax.grid()
+  #fig, ax = plt.subplots()
+  #ax.plot(x, F)
+  #ax.set(xlabel='time (s)', ylabel='F', title='Delta t = ' + str(delta_t) + " s")
+  #ax.grid()
+  #plt.show()
+
+
+#mostar la grafica de theta,V y la de F en una sola ventana pero distintas graficas UNA arriba de la otra
+
+  fig, (ax1, ax2, ax3) = plt.subplots(3, 1)
+  fig.suptitle('Delta t = ' + str(delta_t) + " s")
+  ax1.plot(x, y)
+  ax1.set(xlabel='time (s)', ylabel='theta')
+  ax1.grid()
+  ax2.plot(x, V)
+  ax2.set(xlabel='time (s)', ylabel='V')
+  ax2.grid()
+  ax3.plot(x, F)
+  ax3.set(xlabel='time (s)', ylabel='F')
+  ax3.grid()
   plt.show()
+
+
+ 
 
 
 
@@ -60,6 +81,6 @@ def calcula_aceleracion(theta, v, f):
 
 #simular(10, 0.01, 45, 0, 0)
 
-simular(10, 0.001, 1, 0, 0)
+simular(50, 0.001, -1, 0, 0)
 
 #simular(10, 0.0001, 45, 0, 0)

@@ -9,8 +9,8 @@ import numpy as np
 def ControlDifuso(posicion,velocidad):
     #dominos y solaopamiento
     D_posicion = [-np.pi/8,np.pi/8]
-    D_velocidad = [-8,8]
-    D_Fuerza = [-37,37]
+    D_velocidad = [-6.5,6.5]
+    D_Fuerza = [-40,40]
     A_posicion = 0.5
     A_velocidad = 0.5
 
@@ -19,10 +19,18 @@ def ControlDifuso(posicion,velocidad):
 
     #reglas
     #levantar F.txt y leer reglas
-    reglas = open('DIY_F.txt','r')
-    reglas = reglas.readlines()
-    reglas = [i.strip('\n') for i in reglas]
-    reglas = [i.split(' ') for i in reglas]
+    #reglas = open('DIY_F.txt','r')
+    #reglas = reglas.readlines()
+    #reglas = [i.strip('\n') for i in reglas]
+    #reglas = [i.split(' ') for i in reglas]
+
+    reglas=[['Z','PP','PP','PG','PG'],
+            ['NP','Z','PP','PP','PG'],
+            ['NP','NP','Z','PP','PP'],
+            ['NG','NP','NP','Z','PP'],
+            ['NG','NG','NP','NP','Z']]
+
+
 
     #convinaciones que implican F=NG
     lables = ['NG','NP','Z','PP','PG']
