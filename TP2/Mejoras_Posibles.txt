@@ -1,0 +1,21 @@
+"DIY_Rules.py": Este archivo contendría las reglas difusas que definen el comportamiento del controlador difuso. 
+En lugar de tener las reglas codificadas directamente en el archivo "DIY_Control.py", se pueden almacenar en este archivo 
+para facilitar su mantenimiento y extensión. Las reglas podrían estar representadas en forma de matrices o estructuras de 
+datos adecuadas.
+
+"DIY_MembershipFunctions.py": En este archivo, se podrían definir y encapsular las funciones de membresía utilizadas en la
+fuzzificación de las variables de entrada del sistema. Cada función de membresía se implementaría como una función separada,
+lo que facilitaría la modificación y agregado de nuevas funciones de membresía según sea necesario.
+
+"DIY_DefuzzificationMethods.py": Aquí se pueden implementar diferentes métodos de desfuzzificación para comparar y evaluar
+su desempeño. Además del método actualmente utilizado en "DIY_DesFuzzy.py", se podrían agregar otros métodos populares, como
+el método del centroide, el método de la altura máxima, etc. Esto permitiría realizar análisis comparativos y seleccionar el
+método de desfuzzificación más adecuado para el sistema de péndulo invertido.
+
+"DIY_Validation.py": Este archivo puede contener funciones para validar y evaluar el rendimiento del sistema de control difuso.
+Puedes implementar métricas y técnicas de evaluación, como el error cuadrático medio, el seguimiento de referencia, el tiempo
+de establecimiento, la respuesta al escalón, entre otros. Esto te permitiría medir y mejorar la calidad del controlador difuso.
+
+"DIY_Tuning.py": Aquí puedes incluir funciones para el ajuste y optimización de los parámetros del controlador difuso. Puedes
+utilizar técnicas de optimización, como algoritmos genéticos o búsqueda exhaustiva, para encontrar los mejores valores de los
+parámetros y mejorar el rendimiento del sistema de control.
