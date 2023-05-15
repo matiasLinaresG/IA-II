@@ -94,6 +94,6 @@ def calcula_aceleracion(theta, v, f):
 
 #simular(10, 0.01, 45, 0, 0)
 
-simular(10, 0.001, 47, 0, 0)
+simular(10, 0.001, 180, 6, 0)
 
 #simular(10, 0.0001, 45, 0, 0)
