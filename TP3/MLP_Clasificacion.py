@@ -124,6 +124,7 @@ def train(x, t, pesos, learning_rate, epochs): #train es una funcion que recibe 
         #    que tomamos del array t ("target")
         loss = (1 / m) * np.sum( -np.log( p[range(m), t] ))
 
+
         # Mostramos solo cada 1000 epochs
         if i %1000 == 0:
             print("Loss epoch", i, ":", loss)
