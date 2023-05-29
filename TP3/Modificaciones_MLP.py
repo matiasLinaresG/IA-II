@@ -108,13 +108,19 @@ def clasificar(x, pesos):
 def train(x, t, pesos, learning_rate, epochs):  # train es una funcion que recibe 5 parametros, x, t, pesos, learning_rate y epochs, realiza el entrenamiento de la red neuronal con los datos de entrada x y la salida correcta t, los pesos de la red se encuentran en el diccionario pesos, el learning_rate es la tasa de aprendizaje y epochs es la cantidad de iteraciones que se realizan para entrenar la red
     # Cantidad de filas (i.e. cantidad de ejemplos)
     m = np.size(x, 0)
-    x_entrenamiento, t_entrenamiento, x_validacion, t_validacion = dividir_conjunto_de_datos(x, t, 0.7)
 
-    best_loss = float('inf')
+    numero_clases = 3
+    numero_ejemplos = 300
+
+    xnew, tnew = generar_datos_clasificacion(numero_ejemplos, numero_clases)
+    x_precision, t_precision, x_pruebapresc, t_pruebaprec = dividir_conjunto_de_datos(xnew, tnew, 0.7)
+    x_val, t_val, x_pruebaval, t_pruebaval = dividir_conjunto_de_datos(xnew, tnew, 0.7)
+
+    best_loss = float("inf")
     best_accuracy = 0
     patience = 0
-    validation_frequency=1000
-    tolerance=0.0001
+    validation_frequency=100
+    tolerance=1e-3
 
     for i in range(epochs):
         # Ejecucion de la red hacia adelante
@@ -142,34 +148,47 @@ def train(x, t, pesos, learning_rate, epochs):  # train es una funcion que recib
         # d. Calculo de la funcion de perdida global. Solo se usa la probabilidad de la clase correcta,
         #    que tomamos del array t ("target")
         loss = (1 / m) * np.sum(-np.log(p[range(m), t]))
+        ##################################################################################Calculo de Precision#########################################################################################
 
-##################################################################################Calculo de Precision#########################################################################################
+        # e. calculo accuracy
+        predicciones = clasificar(x, pesos)
+        precision = np.mean(predicciones == t)
 
+        #ahora calculamos accuarcy con un conjunto de test independiente
+        predicciones_prueba = clasificar(x_pruebapresc, pesos)
+        precision_prueba = np.mean(predicciones_prueba == t_pruebaprec)
 
-        #calcular la precision
-        # Paso 2: Realizar predicciones utilizando el conjunto de prueba
+        # f.se agrega parada temprana, con un conjunto distinto al de entrenamiento (validacion), se verifica el valor de loss o de accuracy cada N epochs (donde N es un parámetro de configuración) utilizando el conjunto de validación, y se detiene el entrenamiento en caso de que estos valores hayan empeorado (se incluye una tolerancia para evitar cortar el entrenamiento por alguna oscilación propia del proceso de entrenamiento).
         if i % validation_frequency == 0:
-            resultados_validacion = ejecutar_adelante(x_validacion, pesos)
+            resultados_validacion = ejecutar_adelante(x_val, pesos)
             y_validacion = resultados_validacion["y"]
 
-            predicciones_prueba = clasificar(x_validacion, pesos)
-            precision_prueba = np.mean(predicciones_prueba == t_validacion)
-            print(f"Loss Epoch {i}: loss = {loss}, precision prueba= {precision_prueba}")
-
-        # Paso 3: Verificar si la pérdida de validación ha empeorado y detener el entrenamiento si es necesario
+            predicciones_prueba = clasificar(x_val, pesos)
+            precision_prueba = np.mean(predicciones_prueba == t_val)
+            print(f"Epoch {i}: loss = {loss},precision= {precision} , precision prueba= {precision_prueba}")
+            print(best_loss - loss)
+            print(tolerance)
             if loss < best_loss:
                 best_loss = loss
                 best_accuracy = precision_prueba
                 patience = 0
             else:
                 patience += 1
-                if patience > 10:
-                    print(f"Early stopping en epoch {i}")
+                print(f"patience-> {patience}")
+                if patience > 4:
+                    print(f"Early stopping (patience > 10) in epoch {i}")
                     break
+            #agregamos tolerancia, que no anda bien asi que esta aca comentado
+            # if abs(best_loss - loss) < tolerance:
+            #     print(f"Early stopping for tolerance in epoch {i}")
+            #     break
 
-            if abs(best_loss - loss) < tolerance:
-                print(f"Early stopping en epoch for tolerance {i}")
-                break
+
+
+
+
+
+
 
 
  ##################################################################################Calculo de Precision#########################################################################################
@@ -215,6 +234,7 @@ def train(x, t, pesos, learning_rate, epochs):  # train es una funcion que recib
 def iniciar(numero_clases, numero_ejemplos, graficar_datos):
     # Generamos datos
     x, t = generar_datos_clasificacion(numero_ejemplos, numero_clases)
+    x_entrenamiento, t_entrenamiento, x_prueba, t_prueba = dividir_conjunto_de_datos(x, t, 0.7)
 
     # Graficamos los datos si es necesario
     if graficar_datos:
@@ -230,7 +250,7 @@ def iniciar(numero_clases, numero_ejemplos, graficar_datos):
     # Entrena
     LEARNING_RATE = 1
     EPOCHS = 10000
-    train(x, t, pesos, LEARNING_RATE, EPOCHS)
+    train(x_entrenamiento, t_entrenamiento, pesos, LEARNING_RATE, EPOCHS)
 
 ##################################################################################Calculo de Precision#########################################################################################
 def dividir_conjunto_de_datos(x, t, porcentaje_entrenamiento):
@@ -263,7 +283,7 @@ def dividir_conjunto_de_datos(x, t, porcentaje_entrenamiento):
 #     return precision
 
 
-iniciar(numero_clases=3, numero_ejemplos=300, graficar_datos=True)
+iniciar(numero_clases=3, numero_ejemplos=300, graficar_datos=False)
 
 
 #Preguntas para consulta>>>>>>>>> Como tratar los nuevos conjuntos de datos? x, x_prueba, x_validacion, x_entrenamiento, t_entrenamiento
