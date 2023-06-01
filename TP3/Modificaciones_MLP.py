@@ -15,9 +15,10 @@ def generar_datos_clasificacion(cantidad_ejemplos, cantidad_clases):
 
     # Entradas: 2 columnas (x1 y x2)
     x = np.zeros((cantidad_ejemplos, 2))
+    #x es 
     # Salida deseada ("target"): 1 columna que contendra la clase correspondiente (codificada como un entero)
     t = np.zeros(cantidad_ejemplos, dtype="uint8")  # 1 columna: la clase correspondiente (t -> "target")
-
+    # t es
     randomgen = np.random.default_rng()
 
     # Por cada clase (que va de 0 a cantidad_clases)...
@@ -43,10 +44,12 @@ def generar_datos_clasificacion(cantidad_ejemplos, cantidad_clases):
         x1 = radios * np.sin(angulos)
         x2 = radios * np.cos(angulos)
         x[indices] = np.c_[x1, x2]
-
+        #np.c es una funcion que concatena vectores, en este caso concatena x1 y x2, es decir, x[indices] = [x1, x2]
         # Guardamos el valor de la clase que le vamos a asociar a las entradas x1 y x2 que acabamos
         # de generar
         t[indices] = clase
+
+        #t es un vector de 100 elementos, cada elemento es un entero entre 0 y 2, se relaciona con x, por ejemplo, x[0] tiene como salida deseada t[0] = 0, x[1] tiene como salida deseada t[1] = 0, ..., x[99] tiene como salida deseada t[99] = 2
 
     return x, t
 
@@ -107,81 +110,67 @@ def clasificar(x, pesos):
 # pesos: pesos (W y b)
 def train(x, t, pesos, learning_rate, epochs):  # train es una funcion que recibe 5 parametros, x, t, pesos, learning_rate y epochs, realiza el entrenamiento de la red neuronal con los datos de entrada x y la salida correcta t, los pesos de la red se encuentran en el diccionario pesos, el learning_rate es la tasa de aprendizaje y epochs es la cantidad de iteraciones que se realizan para entrenar la red
     # Cantidad de filas (i.e. cantidad de ejemplos)
-    m = np.size(x, 0)
+    
 
     numero_clases = 3
     numero_ejemplos = 300
 
+    lista_loss = []
+    lista_lossval = []
+    lista_precision_prueba = []
+
     xnew, tnew = generar_datos_clasificacion(numero_ejemplos, numero_clases)
+    xnew2, tnew2 = generar_datos_clasificacion(numero_ejemplos, numero_clases)
     x_precision, t_precision, x_pruebapresc, t_pruebaprec = dividir_conjunto_de_datos(xnew, tnew, 0.7)
-    x_val, t_val, x_pruebaval, t_pruebaval = dividir_conjunto_de_datos(xnew, tnew, 0.7)
+    x_val, t_val, x_pruebaval, t_pruebaval = dividir_conjunto_de_datos(xnew2, tnew2, 0.7)
 
     best_loss = float("inf")
     best_accuracy = 0
     patience = 0
     validation_frequency=100
-    tolerance=1e-3
+
 
     for i in range(epochs):
-        # Ejecucion de la red hacia adelante
-        resultados_feed_forward = ejecutar_adelante(x, pesos)
-        y = resultados_feed_forward["y"]
-        h = resultados_feed_forward["h"]
-        z = resultados_feed_forward["z"]
-
+        m = np.size(x, 0)
+        
         # LOSS
-        # a. Exponencial de todos los scores
-        exp_scores = np.exp(y)
-
-        # b. Suma de todos los exponenciales de los scores, fila por fila (ejemplo por ejemplo).
-        #    Mantenemos las dimensiones (indicamos a NumPy que mantenga la segunda dimension del
-        #    arreglo, aunque sea una sola columna, para permitir el broadcast correcto en operaciones
-        #    subsiguientes)
-        sum_exp_scores = np.sum(exp_scores, axis=1, keepdims=True)
-
-        # c. "Probabilidades": normalizacion de las exponenciales del score de cada clase (dividiendo por
-        #    la suma de exponenciales de todos los scores), fila por fila
-        p = exp_scores / sum_exp_scores
-
-
-
-        # d. Calculo de la funcion de perdida global. Solo se usa la probabilidad de la clase correcta,
-        #    que tomamos del array t ("target")
-        loss = (1 / m) * np.sum(-np.log(p[range(m), t]))
+        y,h,z,loss,p =  calcular_loss(x, t, pesos)
+        _,_,_,lossval,_ = calcular_loss(x_val, t_val, pesos)
+        #guardo los valores de loss en una lista para graficarlos
+        lista_loss.append(loss)
+        lista_lossval.append(lossval)
         ##################################################################################Calculo de Precision#########################################################################################
 
-        # e. calculo accuracy
-        predicciones = clasificar(x, pesos)
-        precision = np.mean(predicciones == t)
+        # # e. calculo accuracy con val de train
+        # predicciones = clasificar(x, pesos)
+        # precision = np.mean(predicciones == t)
 
-        #ahora calculamos accuarcy con un conjunto de test independiente
-        predicciones_prueba = clasificar(x_pruebapresc, pesos)
-        precision_prueba = np.mean(predicciones_prueba == t_pruebaprec)
+        # e. calculo accuracy con datos de precision
+        predicciones_precision = clasificar(x_precision, pesos)
+        precision_prueba = np.mean(predicciones_precision == t_precision)
+
+        
+
+        #guardamos la precision prueba en una lista para graficarla
+        lista_precision_prueba.append(precision_prueba)
 
         # f.se agrega parada temprana, con un conjunto distinto al de entrenamiento (validacion), se verifica el valor de loss o de accuracy cada N epochs (donde N es un parámetro de configuración) utilizando el conjunto de validación, y se detiene el entrenamiento en caso de que estos valores hayan empeorado (se incluye una tolerancia para evitar cortar el entrenamiento por alguna oscilación propia del proceso de entrenamiento).
         if i % validation_frequency == 0:
-            resultados_validacion = ejecutar_adelante(x_val, pesos)
-            y_validacion = resultados_validacion["y"]
-
-            predicciones_prueba = clasificar(x_val, pesos)
-            precision_prueba = np.mean(predicciones_prueba == t_val)
-            print(f"Epoch {i}: loss = {loss},precision= {precision} , precision prueba= {precision_prueba}")
-            print(best_loss - loss)
-            print(tolerance)
-            if loss < best_loss:
-                best_loss = loss
+            
+            print(f"Epoch {i}: loss = {loss}, loss val = {lossval}, precision prueba= {precision_prueba}")
+            # print(best_loss - loss)
+           
+            if lossval < best_loss:
+                best_loss = lossval
                 best_accuracy = precision_prueba
                 patience = 0
             else:
                 patience += 1
                 print(f"patience-> {patience}")
-                if patience > 4:
-                    print(f"Early stopping (patience > 10) in epoch {i}")
+                if patience > 2:
+                    print(f"Early stopping (patience > 2) in epoch {i}")
                     break
-            #agregamos tolerancia, que no anda bien asi que esta aca comentado
-            # if abs(best_loss - loss) < tolerance:
-            #     print(f"Early stopping for tolerance in epoch {i}")
-            #     break
+            
 
 
 
@@ -231,6 +220,19 @@ def train(x, t, pesos, learning_rate, epochs):  # train es una funcion que recib
         pesos["b2"] = b2
 
 
+
+    #graficamos loss, lossval y precision en una misma ventana
+    plt.plot(lista_loss, label="loss")
+    plt.plot(lista_lossval, label="lossval")
+    plt.plot(lista_precision_prueba, label="precision")
+    plt.legend()
+    plt.show()
+
+
+
+        #graficamos los datos
+
+
 def iniciar(numero_clases, numero_ejemplos, graficar_datos):
     # Generamos datos
     x, t = generar_datos_clasificacion(numero_ejemplos, numero_clases)
@@ -269,18 +271,35 @@ def dividir_conjunto_de_datos(x, t, porcentaje_entrenamiento):
     t_prueba = t[cantidad_entrenamiento:]
 
     return x_entrenamiento, t_entrenamiento, x_prueba, t_prueba
-##################################################################################Calculo de Precision#########################################################################################
+##################################################################################Calculo de Loss#########################################################################################
+def calcular_loss(x, t, pesos):
+    m = np.size(x, 0)
+    resultados_feed_forward = ejecutar_adelante(x, pesos)
+    y = resultados_feed_forward["y"]
+    h = resultados_feed_forward["h"]
+    z = resultados_feed_forward["z"]
 
-# def precision(x, t, pesos):
-#     # Calculamos la salida de la red
-#     resultados_feed_forward = ejecutar_adelante(x, pesos)
-#     y = resultados_feed_forward["y"]
-#
-#     # Calculamos la precision como el porcentaje de ejemplos clasificados correctamente
-#     predicciones = np.argmax(y, axis=1)
-#     precision = np.mean(predicciones == t)
-#
-#     return precision
+    # LOSS
+    # a. Exponencial de todos los scores
+    exp_scores = np.exp(y)
+
+    # b. Suma de todos los exponenciales de los scores, fila por fila (ejemplo por ejemplo).
+    #    Mantenemos las dimensiones (indicamos a NumPy que mantenga la segunda dimension del
+    #    arreglo, aunque sea una sola columna, para permitir el broadcast correcto en operaciones
+    #    subsiguientes)
+    sum_exp_scores = np.sum(exp_scores, axis=1, keepdims=True)
+
+    # c. "Probabilidades": normalizacion de las exponenciales del score de cada clase (dividiendo por
+    #    la suma de exponenciales de todos los scores), fila por fila
+    p = exp_scores / sum_exp_scores
+
+
+
+    # d. Calculo de la funcion de perdida global. Solo se usa la probabilidad de la clase correcta,
+    #    que tomamos del array t ("target")
+    loss = (1 / m) * np.sum(-np.log(p[range(m), t]))
+    return y,h,z,loss,p
+
 
 
 iniciar(numero_clases=3, numero_ejemplos=300, graficar_datos=False)
