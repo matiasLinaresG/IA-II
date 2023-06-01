@@ -32,12 +32,14 @@ def ControlDifuso(posicion,velocidad):
     #        ['NP','NP','Z','PP','PP'],
     #        ['NG','NP','NP','Z','PP'],
     #        ['NG','NG','NP','NP','Z']]
-    
-    reglas=[['NG','NG','NG','NP','Z'],
-            ['NG','NG','NP','Z','PP'],
-            ['NG','NP','Z','PP','PG'],
-            ['NP','Z','PP','PG','PG'],
-            ['Z','PP','PG','PG','PG']]
+
+
+#Velocidad:  NG    NP   Z    PP  PG
+    reglas=[['NG','NG','NG','NP','Z'],  #Posicion: NG
+            ['NG','NG','NP','Z','PP'],  #Posicion: NP
+            ['NG','NP','Z','PP','PG'],  #Posicion: z
+            ['NP','Z','PP','PG','PG'],  #Posicion: PP
+            ['Z','PP','PG','PG','PG']]  #Posicion: PG
 
 
 
