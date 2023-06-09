@@ -30,7 +30,7 @@ def generar_datos_sklearn(cantidad_ejemplos, cantidad_clases):
 
 
 def generar_datos_clasificacion(cantidad_ejemplos, cantidad_clases):
-    FACTOR_ANGULO = np.pi  # 0.79
+    FACTOR_ANGULO = 0.79  # 0.79
     AMPLITUD_ALEATORIEDAD = 0.1  # 0.1
 
     # Calculamos la cantidad de puntos por cada clase, asumiendo la misma cantidad para cada
@@ -87,8 +87,8 @@ def graficar_datos(x, t):
 
 
 # %% Test: Generamos datos
-numero_clases = 4
-numero_ejemplos = 1000
+# numero_clases = 4
+# numero_ejemplos = 1000
 
-x, t = generar_datos_sklearn(numero_ejemplos, numero_clases)
-graficar_datos(x, t)
+# x, t = generar_datos_sklearn(numero_ejemplos, numero_clases)
+# graficar_datos(x, t)
