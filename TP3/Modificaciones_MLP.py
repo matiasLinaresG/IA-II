@@ -8,7 +8,7 @@ import Gen_Datos as gd
 # (https://cs231n.github.io/neural-networks-case-study/)
 def generar_datos_clasificacion(cantidad_ejemplos, cantidad_clases):
     FACTOR_ANGULO = 0.79
-    AMPLITUD_ALEATORIEDAD = 0.1
+    AMPLITUD_ALEATORIEDAD = 0.3
 
     # Calculamos la cantidad de puntos por cada clase, asumiendo la misma cantidad para cada
     # una (clases balanceadas)
@@ -109,7 +109,7 @@ def clasificar(x, pesos):
 # x: n entradas para cada uno de los m ejemplos(nxm)
 # t: salida correcta (target) para cada uno de los m ejemplos (m x 1)
 # pesos: pesos (W y b)
-def train(x, t, pesos, learning_rate, epochs):  # train es una funcion que recibe 5 parametros, x, t, pesos, learning_rate y epochs, realiza el entrenamiento de la red neuronal con los datos de entrada x y la salida correcta t, los pesos de la red se encuentran en el diccionario pesos, el learning_rate es la tasa de aprendizaje y epochs es la cantidad de iteraciones que se realizan para entrenar la red
+def train(x, t,xtest, ttest, pesos, learning_rate, epochs):  # train es una funcion que recibe 5 parametros, x, t, pesos, learning_rate y epochs, realiza el entrenamiento de la red neuronal con los datos de entrada x y la salida correcta t, los pesos de la red se encuentran en el diccionario pesos, el learning_rate es la tasa de aprendizaje y epochs es la cantidad de iteraciones que se realizan para entrenar la red
     # Cantidad de filas (i.e. cantidad de ejemplos)
     
 
@@ -120,11 +120,16 @@ def train(x, t, pesos, learning_rate, epochs):  # train es una funcion que recib
     lista_lossval = []
     lista_precision_prueba = []
 
-    xnew, tnew = generar_datos_clasificacion(numero_ejemplos, numero_clases)
-    xnew2, tnew2 = generar_datos_clasificacion(numero_ejemplos, numero_clases)
-    x_precision, t_precision, x_pruebapresc, t_pruebaprec = dividir_conjunto_de_datos(xnew, tnew, 0.7)
-    x_val, t_val, x_pruebaval, t_pruebaval = dividir_conjunto_de_datos(xnew2, tnew2, 0.7)
+    #relaizamos una copia de x y t para no modificar los datos originales
+    xcopy = x.copy()
+    tcopy = t.copy()
 
+    #xnew, tnew = generar_datos_clasificacion(numero_ejemplos, numero_clases)
+    #xnew2, tnew2 = generar_datos_clasificacion(numero_ejemplos, numero_clases)
+    x_precision=xtest
+    t_precision=ttest
+    _,_, x_val, t_val = dividir_conjunto_de_datos(xcopy, tcopy, 0.7)
+#   x_barrido, t_barrido, x_pruebaval, t_pruebaval = dividir_conjunto_de_datos(x, t, 0.9)
     best_loss = float("inf")
     best_accuracy = 0
     patience = 0
@@ -172,14 +177,6 @@ def train(x, t, pesos, learning_rate, epochs):  # train es una funcion que recib
                     print(f"Early stopping (patience > 2) in epoch {i}")
                     break
             
-
-
-
-
-
-
-
-
 
  ##################################################################################Calculo de Precision#########################################################################################
 
@@ -255,7 +252,7 @@ def iniciar(numero_clases, numero_ejemplos, graficar_datos):
     # Entrena
     LEARNING_RATE = 1
     EPOCHS = 10000
-    train(x_entrenamiento, t_entrenamiento, pesos, LEARNING_RATE, EPOCHS)
+    train(x_entrenamiento, t_entrenamiento,x_prueba, t_prueba, pesos, LEARNING_RATE, EPOCHS)
 
 ##################################################################################Calculo de Precision#########################################################################################
 def dividir_conjunto_de_datos(x, t, porcentaje_entrenamiento):
