@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import Gen_Datos as gd
 
 
 # Generador basado en ejemplo del curso CS231 de Stanford:
@@ -235,7 +236,9 @@ def train(x, t, pesos, learning_rate, epochs):  # train es una funcion que recib
 
 def iniciar(numero_clases, numero_ejemplos, graficar_datos):
     # Generamos datos
-    x, t = generar_datos_clasificacion(numero_ejemplos, numero_clases)
+    # x, t = generar_datos_clasificacion(numero_ejemplos, numero_clases)
+    x, t = gd.generar_datos_clasificacion(numero_ejemplos, numero_clases)
+    
     x_entrenamiento, t_entrenamiento, x_prueba, t_prueba = dividir_conjunto_de_datos(x, t, 0.7)
 
     # Graficamos los datos si es necesario
