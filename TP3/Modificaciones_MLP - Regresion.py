@@ -141,18 +141,49 @@ def train(x, t, xtest, ttest, pesos, learning_rate, epochs):  # train es una fun
         b2 = pesos["b2"]
 
         # Ajustamos los pesos: Backpropagation
-        dL_dy = 2 * (p - t)  # Derivada del error cuadrático medio (MSE) respecto a la salida
-        dL_dy /= m  # Dividir por el número de ejemplos de entrenamiento
+         
+        # Derivada del error cuadrático medio (MSE) respecto a la salida
+        dL_dy  = 2 * (y - t)
+        
+        # Derivada de la salida respecto a la entrada neta
+        dy_dz2 = h * (1 - h)
+        #derivada_sigmoide(z2) = h * (1 - h)
 
-        dL_dw2 = h.T.dot(dL_dy)  # Ajuste para w2
-        dL_db2 = np.sum(dL_dy, axis=0, keepdims=True)  # Ajuste para b2
+        # Derivada de la entrada neta respecto a w2
+        dz2_dw2 = h
 
-        dL_dh = dL_dy.dot(w2.T)
+        # Derivada del error cuadrático medio (MSE) respecto a w2
+        dL_dw2 = np.dot(dz2_dw2.T, dL_dy * dy_dz2)
 
-        dL_dz = dL_dh  # El cálculo dL/dz = dL/dh * dh/dz. La función "h" es la función de activación lineal de la capa oculta.
+        # Derivada de la entrada neta respecto a b2
+        dz2_db2 = 1
 
-        dL_dw1 = x.T.dot(dL_dz)  # Ajuste para w1
-        dL_db1 = np.sum(dL_dz, axis=0, keepdims=True)  # Ajuste para b1
+        # Derivada del error cuadrático medio (MSE) respecto a b2
+        dL_db2 = np.dot(dz2_db2.T, dL_dy * dy_dz2)
+
+        # Derivada de la entrada neta respecto a h
+        dz2_dh = w2
+
+        # Derivada del error cuadrático medio (MSE) respecto a h
+        dL_dh = np.dot(dL_dy * dy_dz2, dz2_dh.T)
+
+        # Derivada de la entrada neta respecto a la salida de la capa oculta
+        dh_dz1 = h * (1 - h)
+        #derivada_sigmoide(z1) es igual a h * (1 - h)
+
+        # Derivada de la salida de la capa oculta respecto a la entrada neta
+        dz1_dw1 = x
+
+        # Derivada del error cuadrático medio (MSE) respecto a w1
+        dL_dw1 = np.dot(dz1_dw1.T, dh_dz1 * dL_dh)
+
+        # Derivada de la entrada neta respecto a b1
+        dz1_db1 = 1
+
+        # Derivada del error cuadrático medio (MSE) respecto a b1
+        dL_db1 = np.dot(dz1_db1.T, dh_dz1 * dL_dh)
+
+       
 
         # Aplicamos el ajuste a los pesos
         w1 += -learning_rate * dL_dw1
@@ -190,8 +221,9 @@ def iniciar(numero_clases, numero_ejemplos, graficar_datos):
 
     if graficar_datos:
         # Parametro: "c": color (un color distinto para cada clase en t)
-        plt.scatter(x, t)
+        plt.scatter(x[:, 0], x[:, 1], c=t)
         plt.show()
+
 
 
     x_entrenamiento,t_entrenamiento, x_prueba,t_prueba = div.dividir_conjunto_de_datos(x,t, 0.7)
@@ -222,7 +254,7 @@ def calcular_loss(x, t, pesos):
     return ejecucion["z"], ejecucion["h"], ejecucion["y"], mse
 
 
-iniciar(numero_clases=1, numero_ejemplos=300, graficar_datos=False)
+iniciar(numero_clases=1, numero_ejemplos=300, graficar_datos=True)
 
 
 #Preguntas para consulta>>>>>>>>> Como tratar los nuevos conjuntos de datos? x, x_prueba, x_validacion, x_entrenamiento, t_entrenamiento

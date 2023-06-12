@@ -189,7 +189,9 @@ def iniciar(numero_clases, numero_ejemplos, graficar_datos):
 
     # Graficamos los datos si es necesario
     if graficar_datos:
-        gd.graficar_datos(x, t) 
+        plt.scatter(x[:, 0], x[:, 1], c=t)
+        plt.show()
+
 
     # Inicializa pesos de la red
     NEURONAS_CAPA_OCULTA = 100

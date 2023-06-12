@@ -67,18 +67,14 @@ def generar_datos_continuos(num_puntos, num_clases): #para clasificacion
     
     return np.array(puntos), np.array(etiquetas)
 
-import numpy as np
 
-def generar_datos_regresion(num_puntos, rango_x):
-    x = np.zeros((num_puntos, 2))
-    t = np.zeros(num_puntos)  # Salida deseada ("target")
 
-    # Generar valores de entrada x
-    x[:, 0] = np.random.uniform(rango_x[0], rango_x[1], num_puntos)
-    x[:, 1] = np.random.uniform(rango_x[0], rango_x[1], num_puntos)
+def generar_datos_regresion(num_puntos, rango_x): #con 2 entradas y 1 salida
+    #x es un vector de 100 elementos, cada elemento es un vector de 2 elementos, cada elemento del vector es un numero real entre -1 y 1
+    x = np.random.uniform(rango_x[0], rango_x[1], size=(num_puntos, 2))
+    #t es un vector de 100 elementos, cada elemento es un numero real entre -1 y 1
+    t = np.sin(x[:, 0]) + np.cos(x[:, 1])
 
-    # Generar valores objetivo t
-    t = 2 * x[:, 0] + np.random.normal(0, 1, num_puntos)  # Ecuación de una línea con ruido
-    #t tiene formato de vector, es decir, es un vector de 100 elementos, cada elemento es un numero real, es un vector columna
     t = t.reshape(-1, 1)
+
     return x, t
