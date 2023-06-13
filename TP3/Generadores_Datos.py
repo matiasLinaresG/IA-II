@@ -118,10 +118,12 @@ def generar_datos_caseros(cantidad_ejemplos=100, cantidad_clases=1):
     listaX = []  # Creo una lista de arrays que luego uno en un solo array
     listaT = []
     r = rng.random()
+    if r<0.5:
+        r=0.5 #Para que no se haga una sola nube confusa
     # Genero una distribucion para cada clase
     for i in range(m):
         t = rng.random()*2*np.pi
-        centro = np.rint([r*np.cos(t), r*np.sin(t)])
+        centro = [r*np.cos(t), r*np.sin(t)]
         # print("Centro: "+str(centro))
 
         # Genero los datos gausianos:
