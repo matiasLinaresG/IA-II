@@ -9,7 +9,7 @@ def inicializar_pesos(n_entrada, n_capa_2, n_capa_3):
     b1 = 0.1 * randomgen.standard_normal((1, n_capa_2))
     w2 = 0.1 * randomgen.standard_normal((n_capa_2, n_capa_3))
     b2 = 0.1 * randomgen.standard_normal((1, n_capa_3))
-    y_precision = 0
+
     return {"w1": w1, "b1": b1, "w2": w2, "b2": b2}
 
 
@@ -54,16 +54,11 @@ def train(x, t, xtest, ttest, pesos, learning_rate, epochs):
         z = resultados["z"]
         y = resultados["y"]
 
-
         # e. calculo accuracy con datos de precision
-        
-        y_precision, h_precision, z_precision = ejecutar_adelante(xtest, pesos)
-        ttest = np.array(ttest, dtype=np.float64)
-
-        
-        #accuracy
-        precision_prueba = np.mean((y_precision - ttest) ** 2)
-
+        y_precision, _, _ = ejecutar_adelante(xtest, pesos)
+       
+        precision_prueba = np.sum((y - t)**2) / m
+   
         #guardamos la precision prueba en una lista para graficarla
         lista_precision_prueba.append(precision_prueba)
         
