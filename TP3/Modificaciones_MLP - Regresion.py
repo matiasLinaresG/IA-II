@@ -10,7 +10,7 @@ import Divisores as div
 
 
 
-def inicializar_pesos(n_entrada, n_capa_2, n_capa_3):  # n_entrada = 2, n_capa_2 = 25, n_capa_3 = 3
+def inicializar_pesos(n_entrada, n_capa_2, n_capa_3):  
     # Inicializamos los pesos de la red con valores aleatorios con distribucion normal
     # (media = 0, desvio estandar = 0.1)
 
@@ -26,6 +26,12 @@ def inicializar_pesos(n_entrada, n_capa_2, n_capa_3):  # n_entrada = 2, n_capa_2
     b2 = 0.1 * randomgen.standard_normal((1,
                                           n_capa_3))  # np.random.standard_normal((1,n_capa_3)) es una matriz de 1 fila y n_capa_3 columnas con valores aleatorios con distribucion normal, media = 0, desvio estandar = 1
 
+    #se imprimen las dimensiones de las matrices
+    print("w1: ", w1.shape)
+    print("b1: ", b1.shape)
+    print("w2: ", w2.shape)
+    print("b2: ", b2.shape)
+
     return {"w1": w1, "b1": b1, "w2": w2, "b2": b2}
 
 
@@ -33,14 +39,20 @@ def ejecutar_adelante(x, pesos):
     # Funcion de entrada (a.k.a. "regla de propagacion") para la primera capa oculta
     z = x.dot(pesos["w1"]) + pesos["b1"]  # x.dot es un producto matricial, dot es de la libreria numpy, se usa para multiplicar matrices
 
-    # Funcion de activacion lineal para la capa oculta (h -> "hidden")
+    # Funcion de activacion sigmoide para la capa oculta (h -> "hidden")
 
-    h = z  # h es la salida de la capa oculta, es decir, la entrada de la capa de salida
+    h = 1 / (1 + np.exp(-z))  # np.exp es la funcion exponencial
 
 
     # Salida de la red (funcion de activacion lineal). Esto incluye la salida de todas
     # las neuronas y para todos los ejemplos proporcionados
     y = h.dot(pesos["w2"]) + pesos["b2"]
+
+     #se imprimen las dimensiones de las matrices
+    print("z: ", z.shape)
+    print("h: ", h.shape)
+    print("y: ", y.shape)
+    
 
     return {"z": z, "h": h, "y": y}
 
@@ -141,49 +153,29 @@ def train(x, t, xtest, ttest, pesos, learning_rate, epochs):  # train es una fun
         b2 = pesos["b2"]
 
         # Ajustamos los pesos: Backpropagation
-         
-        # Derivada del error cuadrático medio (MSE) respecto a la salida
-        dL_dy  = 2 * (y - t)
+        # Calculamos las derivadas de la funcion de costo con respecto a los pesos
+        #dL_dw2 = dL_dy * dy_dw2     
+        dL_dy = 2*(y - t) / m
+        dy_dw2 = h
+        dL_dw2 = np.dot(dy_dw2.T, dL_dy)
+
+        #dL_db2 = dL_dy * dy_db2
+        dy_db2 = 1
+        dL_db2 = dL_dy * dy_db2
+
+        #dL_dw1= dL_dy * dy_dh * dh_dz *dz_dw1
+        dy_dh = w2
+        dh_dz = h * (1 - h)
+        dz_dw1 = x
+        a= np.dot(dL_dy, dy_dh)
+        b= np.dot(dh_dz.T, dz_dw1)
+        dL_dw1 = np.dot(a, b)
+
+        #dL_db1 = dL_dy * dy_dh * dh_dz * dz_db1
+        dz_db1 = 1
+        dL_db1 = np.dot(dz_db1.T, dh_dz * np.dot(dL_dy, dy_dh.T))
         
-        # Derivada de la salida respecto a la entrada neta
-        dy_dz2 = h * (1 - h)
-        #derivada_sigmoide(z2) = h * (1 - h)
-
-        # Derivada de la entrada neta respecto a w2
-        dz2_dw2 = h
-
-        # Derivada del error cuadrático medio (MSE) respecto a w2
-        dL_dw2 = np.dot(dz2_dw2.T, dL_dy * dy_dz2)
-
-        # Derivada de la entrada neta respecto a b2
-        dz2_db2 = 1
-
-        # Derivada del error cuadrático medio (MSE) respecto a b2
-        dL_db2 = np.dot(dz2_db2.T, dL_dy * dy_dz2)
-
-        # Derivada de la entrada neta respecto a h
-        dz2_dh = w2
-
-        # Derivada del error cuadrático medio (MSE) respecto a h
-        dL_dh = np.dot(dL_dy * dy_dz2, dz2_dh.T)
-
-        # Derivada de la entrada neta respecto a la salida de la capa oculta
-        dh_dz1 = h * (1 - h)
-        #derivada_sigmoide(z1) es igual a h * (1 - h)
-
-        # Derivada de la salida de la capa oculta respecto a la entrada neta
-        dz1_dw1 = x
-
-        # Derivada del error cuadrático medio (MSE) respecto a w1
-        dL_dw1 = np.dot(dz1_dw1.T, dh_dz1 * dL_dh)
-
-        # Derivada de la entrada neta respecto a b1
-        dz1_db1 = 1
-
-        # Derivada del error cuadrático medio (MSE) respecto a b1
-        dL_db1 = np.dot(dz1_db1.T, dh_dz1 * dL_dh)
-
-       
+        
 
         # Aplicamos el ajuste a los pesos
         w1 += -learning_rate * dL_dw1
@@ -210,6 +202,7 @@ def train(x, t, xtest, ttest, pesos, learning_rate, epochs):  # train es una fun
 
 
         #graficamos los datos
+
 
 
 def iniciar(numero_clases, numero_ejemplos, graficar_datos):
@@ -240,7 +233,6 @@ def iniciar(numero_clases, numero_ejemplos, graficar_datos):
     EPOCHS = 10000
     train(x_entrenamiento, t_entrenamiento, x_prueba, t_prueba, pesos, LEARNING_RATE, EPOCHS)
 
-##################################################################################Calculo de Precision#########################################################################################
 
 ##################################################################################Calculo de Loss#########################################################################################
 def calcular_loss(x, t, pesos):
@@ -252,7 +244,7 @@ def calcular_loss(x, t, pesos):
     mse = np.mean((y_pred - t) ** 2)
     
     return ejecucion["z"], ejecucion["h"], ejecucion["y"], mse
-
+##################################################################################Calculo de Loss#########################################################################################
 
 iniciar(numero_clases=1, numero_ejemplos=300, graficar_datos=True)
 

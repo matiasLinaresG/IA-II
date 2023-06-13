@@ -76,5 +76,8 @@ def generar_datos_regresion(num_puntos, rango_x): #con 2 entradas y 1 salida
     t = np.sin(x[:, 0]) + np.cos(x[:, 1])
 
     t = t.reshape(-1, 1)
-
+    #se imprimen las dimensiones de las matrices
+    print("x.shape: ", x.shape)
+    print("t.shape: ", t.shape)
+    
     return x, t

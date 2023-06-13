@@ -44,6 +44,9 @@ def generar_datos_clasificacion(cantidad_ejemplos, cantidad_clases):
         # Guardamos el valor de la clase que le vamos a asociar a las entradas x1 y x2 que acabamos
         # de generar
         t[indices] = clase
+        #se imprimen las dimensiones de las matrices
+        print("x1: ", x1.shape)
+        print("x2: ", x2.shape)
 
     return x, t
 
@@ -59,7 +62,11 @@ def inicializar_pesos(n_entrada, n_capa_2, n_capa_3): #n_entrada = 2, n_capa_2 =
 
     w2 = 0.1 * randomgen.standard_normal((n_capa_2, n_capa_3)) #ramdomgen.standard_normal((n_capa_2, n_capa_3)) es una matriz de n_capa_2 filas y n_capa_3 columnas con valores aleatorios con distribucion normal, media = 0, desvio estandar = 1
     b2 = 0.1 * randomgen.standard_normal((1,n_capa_3)) #np.random.standard_normal((1,n_capa_3)) es una matriz de 1 fila y n_capa_3 columnas con valores aleatorios con distribucion normal, media = 0, desvio estandar = 1
-
+    #se imprimen las dimensiones de las matrices
+    print("w1: ", w1.shape)
+    print("b1: ", b1.shape)
+    print("w2: ", w2.shape)
+    print("b2: ", b2.shape)
     return {"w1": w1, "b1": b1, "w2": w2, "b2": b2}
 
 
@@ -73,7 +80,7 @@ def ejecutar_adelante(x, pesos):
     # Salida de la red (funcion de activacion lineal). Esto incluye la salida de todas
     # las neuronas y para todos los ejemplos proporcionados
     y = h.dot(pesos["w2"]) + pesos["b2"]
-
+    
     return {"z": z, "h": h, "y": y}
 
 
