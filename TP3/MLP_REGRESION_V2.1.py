@@ -55,10 +55,11 @@ def train(x, t, xtest, ttest, pesos, learning_rate, epochs):
         y = resultados["y"]
 
         # e. calculo accuracy con datos de precision
-        y_precision, _, _ = ejecutar_adelante(xtest, pesos)
+        
        
-        precision_prueba = np.sum((y - t)**2) / m
-   
+        mse_prueba ,_= calcular_loss(xtest, ttest, pesos)
+        #lo guardamos en expresion porcentual entre 0 y 1
+        precision_prueba = 1 - mse_prueba
         #guardamos la precision prueba en una lista para graficarla
         lista_precision_prueba.append(precision_prueba)
         
