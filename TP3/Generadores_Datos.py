@@ -3,7 +3,7 @@ import numpy as np
 
 def generar_datos_clasificacion(cantidad_ejemplos, cantidad_clases):
     FACTOR_ANGULO = 0.79
-    AMPLITUD_ALEATORIEDAD = 0.3
+    AMPLITUD_ALEATORIEDAD = 0.1
 
     # Calculamos la cantidad de puntos por cada clase, asumiendo la misma cantidad para cada
     # una (clases balanceadas)
@@ -81,3 +81,67 @@ def generar_datos_regresion(num_puntos, rango_x): #con 2 entradas y 1 salida
     print("t.shape: ", t.shape)
     
     return x, t
+
+# Punto 4: 
+# +Generador con sklearn:
+
+
+def generar_datos_sklearn(cantidad_ejemplos, cantidad_clases):
+    from sklearn.datasets import make_blobs
+    
+    # Genera manchas redondas bien separadas. A veces no todas las clases son linealmente separables.
+    X, y = make_blobs(n_samples=cantidad_ejemplos,
+                      n_features=2, centers=cantidad_clases)
+
+    return X, y
+
+
+# +Generador casero. En un circulo de radio aleatorio se ubican las m clases
+    # cada una con n_datos/m ejemplos.
+    
+    # La ec parametrica del circulo es: (x = r * cos(t), y = r * sin(t))
+    # t va a ser un numero aleatorio
+    # Por ahora el centro es (0,0)
+
+def generar_datos_caseros(cantidad_ejemplos=100, cantidad_clases=1):
+    import numpy as np
+    m = cantidad_clases
+
+    n_datos = cantidad_ejemplos
+
+    n = int(np.rint(n_datos/m))
+
+    # cov = np.eye(2)  # Usamos la identidad como covarianza
+    cov = np.array([[0.1,0],[0,0.1]])
+
+    rng = np.random.default_rng()
+    listaX = []  # Creo una lista de arrays que luego uno en un solo array
+    listaT = []
+    r = rng.random()
+    # Genero una distribucion para cada clase
+    for i in range(m):
+        t = rng.random()*2*np.pi
+        centro = np.rint([r*np.cos(t), r*np.sin(t)])
+        # print("Centro: "+str(centro))
+
+        # Genero los datos gausianos:
+        # datos, clase = generarGaussiana(n, centro, cov, i)
+        datos = np.array(rng.multivariate_normal(centro, cov, n))
+        clase = np.full(datos.shape[0], i)
+        # graficar_datos(datos, clase)
+
+        listaX.append(datos)
+        listaT.append(clase)
+
+    Xsal = np.concatenate(listaX)
+    tsal = np.concatenate(listaT)
+    # graficar_datos(Xsal, tsal)
+    return Xsal, tsal
+
+# Herramienta para graficar la distribucion de puntos.
+
+def graficar_datos(x, t):
+    import matplotlib.pyplot as plt
+    plt.scatter(x[:, 0], x[:, 1], marker="o", c=t, s=25, edgecolor="k")
+    plt.show()
+    return

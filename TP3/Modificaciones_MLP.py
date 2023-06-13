@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import Gen_Datos as gd
+import Generadores_Datos as gd
 
 
 def inicializar_pesos(n_entrada, n_capa_2, n_capa_3):  # n_entrada = 2, n_capa_2 = 25, n_capa_3 = 3
@@ -182,15 +182,15 @@ def train(x, t,xtest, ttest, pesos, learning_rate, epochs):  # train es una func
 def iniciar(numero_clases, numero_ejemplos, graficar_datos):
     # Generamos datos
     # Usar la funcion del archivo
-    x, t = gd.generar_datos_clasificacion(numero_ejemplos, numero_clases)
-    # x, t = gd.generar_datos_sklearn(numero_ejemplos, numero_clases)
+    # x, t = gd.generar_datos_clasificacion(numero_ejemplos, numero_clases)
+    # El generador de datos casero no siempre da clases linealmente separables.
+    x, t = gd.generar_datos_caseros(numero_ejemplos, numero_clases)
     
     x_entrenamiento, t_entrenamiento, x_prueba, t_prueba = dividir_conjunto_de_datos(x, t, 0.7)
 
     # Graficamos los datos si es necesario
     if graficar_datos:
-        plt.scatter(x[:, 0], x[:, 1], c=t)
-        plt.show()
+        gd.graficar_datos(x, t)
 
 
     # Inicializa pesos de la red
