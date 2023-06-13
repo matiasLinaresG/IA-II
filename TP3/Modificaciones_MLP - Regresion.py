@@ -57,20 +57,24 @@ def ejecutar_adelante(x, pesos):
     return {"z": z, "h": h, "y": y}
 
 
-def clasificar(x, pesos):
-    # Corremos la red "hacia adelante"
-    resultados_feed_forward = ejecutar_adelante(x, pesos)
+def calcular_precision (y, t): #funcion que calcula la precision de la red nerunal de regresion y los devolvemos en porcentaje
+    # y: salida de la red neuronal (m x 1)
+    # t: salida correcta (target) (m x 1)
+    # m: cantidad de ejemplos
+    m = y.shape[0]  # cantidad de ejemplos
+    
+    #calculamos la precision con error cuadratico medio y se devuelve en porcentaje
 
-    # Buscamos la(s) clase(s) con scores mas altos (en caso de que haya mas de una con
-    # el mismo score estas podrian ser varias). Dado que se puede ejecutar en batch (x
-    # podria contener varios ejemplos), buscamos los maximos a lo largo del axis=1
-    # (es decir, por filas)
-    max_scores = np.argmax(resultados_feed_forward["y"], axis=1)
 
-    # Tomamos el primero de los maximos (podria usarse otro criterio, como ser eleccion aleatoria)
-    # Nuevamente, dado que max_scores puede contener varios renglones (uno por cada ejemplo),
-    # retornamos la primera columna
-    return max_scores
+    precision = np.sum((y - t)**2) / m
+    precision = 100 - precision
+
+    return precision
+
+ 
+
+
+
 
 
 # x: n entradas para cada uno de los m ejemplos(nxm)
@@ -112,13 +116,15 @@ def train(x, t, xtest, ttest, pesos, learning_rate, epochs):  # train es una fun
         lista_lossval.append(lossval)
         ##################################################################################Calculo de Precision#########################################################################################
 
-        # # e. calculo accuracy con val de train
-        # predicciones = clasificar(x, pesos)
-        # precision = np.mean(predicciones == t)
 
-        # e. calculo accuracy con datos de precision
-        predicciones_precision = clasificar(x_precision, pesos)
-        precision_prueba = np.mean(predicciones_precision == t_precision)
+   
+
+        # e. calculo accuracy con datos de precision 
+        y_precision, h_precision, z_precision = ejecutar_adelante(x_precision, pesos)
+        
+
+        precision_prueba = calcular_precision(y_precision, t_precision)
+
 
         
 
@@ -158,6 +164,7 @@ def train(x, t, xtest, ttest, pesos, learning_rate, epochs):  # train es una fun
         dL_dy = 2*(y - t) / m
         dy_dw2 = h
         dL_dw2 = np.dot(dy_dw2.T, dL_dy)
+        #print (dL_dw2.shape)
 
         #dL_db2 = dL_dy * dy_db2
         dy_db2 = 1
@@ -175,7 +182,7 @@ def train(x, t, xtest, ttest, pesos, learning_rate, epochs):  # train es una fun
         dz_db1 = 1
         dL_db1 = np.dot(dz_db1.T, dh_dz * np.dot(dL_dy, dy_dh.T))
         
-        
+
 
         # Aplicamos el ajuste a los pesos
         w1 += -learning_rate * dL_dw1
@@ -199,10 +206,7 @@ def train(x, t, xtest, ttest, pesos, learning_rate, epochs):  # train es una fun
     plt.legend()
     plt.show()
 
-
-
         #graficamos los datos
-
 
 
 def iniciar(numero_clases, numero_ejemplos, graficar_datos):
@@ -220,13 +224,18 @@ def iniciar(numero_clases, numero_ejemplos, graficar_datos):
 
 
     x_entrenamiento,t_entrenamiento, x_prueba,t_prueba = div.dividir_conjunto_de_datos(x,t, 0.7)
+    #se imprimen las dimensiones de las matrices
+    print("x_entrenamiento: ", x_entrenamiento.shape)
+    print("t_entrenamiento: ", t_entrenamiento.shape)
+    print("x_prueba: ", x_prueba.shape)
+    print("t_prueba: ", t_prueba.shape)
 
     # Graficamos los datos si es necesario
     
     # Inicializa pesos de la red
     NEURONAS_CAPA_OCULTA = 100
     NEURONAS_ENTRADA = 2
-    pesos = inicializar_pesos(n_entrada=NEURONAS_ENTRADA, n_capa_2=NEURONAS_CAPA_OCULTA, n_capa_3=numero_clases)
+    pesos = inicializar_pesos(n_entrada=NEURONAS_ENTRADA, n_capa_2=NEURONAS_CAPA_OCULTA, n_capa_3=numero_clases) #n_capa_3?
 
     # Entrena
     LEARNING_RATE = 0.1
@@ -246,8 +255,5 @@ def calcular_loss(x, t, pesos):
     return ejecucion["z"], ejecucion["h"], ejecucion["y"], mse
 ##################################################################################Calculo de Loss#########################################################################################
 
-iniciar(numero_clases=1, numero_ejemplos=300, graficar_datos=True)
+iniciar(salida_regresion=1, numero_ejemplos=300, graficar_datos=False)
 
-
-#Preguntas para consulta>>>>>>>>> Como tratar los nuevos conjuntos de datos? x, x_prueba, x_validacion, x_entrenamiento, t_entrenamiento
-#Preguntas para consulta>>>>>>>>> Es correcto el if que estoy usando como criterio de parada o como lo deberia escribir?
